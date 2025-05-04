@@ -1,0 +1,56 @@
+{
+  "name": "Tasker",
+  "productName": "Tasker",
+  "version": "1.0.0",
+  "description": "Tasker is a simple task management application",
+  "main": ".vite/build/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx ."
+  },
+  "keywords": [],
+  "author": {
+    "name": "Darshan Naik",
+    "email": "darshan.naik@wrkspot.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.8.0",
+    "@electron-forge/maker-deb": "^7.8.0",
+    "@electron-forge/maker-rpm": "^7.8.0",
+    "@electron-forge/maker-squirrel": "^7.8.0",
+    "@electron-forge/maker-zip": "^7.8.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.0",
+    "@electron-forge/plugin-fuses": "^7.8.0",
+    "@electron-forge/plugin-vite": "^7.8.0",
+    "@electron/fuses": "^1.8.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "autoprefixer": "^10.4.21",
+    "electron": "36.1.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.31.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
+    "typescript": "~4.5.4",
+    "vite": "^5.4.19"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.5",
+    "electron-squirrel-startup": "^1.0.1",
+    "localforage": "^1.10.0",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "nanoid": "^5.1.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.2.0"
+  }
+}

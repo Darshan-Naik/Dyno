@@ -1,0 +1,75 @@
+import { twMerge } from "tailwind-merge";
+import { completeTask, deleteTask, updateTask } from "../../store/task.action";
+import {
+  FaCheck,
+  FaRegClock,
+  FaRegTrashCan,
+  FaRegCircleCheck,
+} from "react-icons/fa6";
+
+const Task = ({ task }) => {
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    const updatedTask = {
+      ...task,
+      [id]: value,
+    };
+    updateTask(updatedTask);
+  };
+
+  return (
+    <div className="bg-secondary px-2 py-1 text-primary rounded flex gap-4">
+      <div className="mt-0.5">
+        {task.completed ? (
+          <FaCheck className="text-green-500" />
+        ) : (
+          <FaRegClock className="text-orange-500" />
+        )}
+      </div>
+      <div className={twMerge("flex-1", task.completed && "opacity-50")}>
+        <textarea
+          rows={1}
+          placeholder="Title"
+          autoFocus={task.title === ""}
+          className={twMerge(
+            "text-sm focus:outline-none bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic",
+            task.completed && "line-through"
+          )}
+          id="title"
+          onChange={handleChange}
+          defaultValue={task.title}
+          readOnly={task.completed}
+        />
+        <textarea
+          rows={1}
+          placeholder="Description"
+          className={twMerge(
+            "text-secondary text-xs focus:outline-none bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic"
+          )}
+          readOnly={task.completed}
+          id="description"
+          onChange={handleChange}
+          defaultValue={task.description}
+        />
+      </div>
+      <div className="flex gap-3 text-sm">
+        {!task.completed && (
+          <button
+            onClick={() => completeTask(task)}
+            className="text-green-600 hover:text-green-400 transition-colors duration-300"
+          >
+            <FaRegCircleCheck />
+          </button>
+        )}
+        <button
+          onClick={() => deleteTask(task)}
+          className="text-red-600 hover:text-red-400 transition-colors duration-300"
+        >
+          <FaRegTrashCan />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Task;
