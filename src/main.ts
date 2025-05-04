@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, clipboard } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
 
@@ -16,6 +16,7 @@ const createWindow = () => {
     titleBarStyle: "hidden",
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
     darkTheme: true,
     icon: "./assets/icons/icon.png",
@@ -56,5 +57,11 @@ app.on("activate", () => {
   }
 });
 
+ipcMain.handle("get-clipboard-text", () => {
+  return clipboard.readText();
+});
+ipcMain.handle("set-clipboard-text", (_, text: string) => {
+  return clipboard.writeText(text);
+});
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

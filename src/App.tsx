@@ -5,6 +5,10 @@ import SideMenu from "./component/SideMenu";
 import { fetchTasks } from "./component/Apps/Tasks/store/task.action";
 import { fetchQuickNote } from "./component/Apps/QuickNote/store/quickNote.action";
 import { mainApps } from "./configs";
+import {
+  fetchClipboardData,
+  getClipboardText,
+} from "./component/Apps/Clipboard/store/clipboard.action";
 
 const App = () => {
   const [activeMenu, setActiveMenu] = useState(
@@ -15,6 +19,11 @@ const App = () => {
   useLayoutEffect(() => {
     fetchTasks();
     fetchQuickNote();
+    fetchClipboardData();
+    const interval = setInterval(getClipboardText, 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const handleMenuClick = (menu: string) => {
