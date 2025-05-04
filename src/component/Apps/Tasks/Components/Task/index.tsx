@@ -55,6 +55,7 @@ const Task = ({ task }) => {
       <div className="flex gap-3 text-sm">
         {!task.completed && (
           <button
+            title="Mark as complete"
             onClick={() => completeTask(task)}
             className="text-green-600 hover:text-green-400 transition-colors duration-300"
           >
@@ -62,6 +63,7 @@ const Task = ({ task }) => {
           </button>
         )}
         <button
+          title="Delete"
           onClick={() => deleteTask(task)}
           className="text-red-600 hover:text-red-400 transition-colors duration-300"
         >

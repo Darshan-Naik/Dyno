@@ -28,6 +28,7 @@ const Clipboard = () => {
           <p className="whitespace-pre-wrap break-words">{text}</p>
           <div className="mt-1 flex gap-2">
             <button
+              title="Copy"
               onClick={() => writeClipboardText(text)}
               className="text-green-600 hover:text-green-400 transition-colors duration-300"
             >
@@ -35,6 +36,7 @@ const Clipboard = () => {
             </button>
             {!!index && (
               <button
+                title="Delete"
                 onClick={() => removeClipboardText(index)}
                 className="text-red-600 hover:text-red-400 transition-colors duration-300"
               >
