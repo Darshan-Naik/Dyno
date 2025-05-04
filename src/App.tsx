@@ -1,19 +1,13 @@
 import { useLayoutEffect, useState } from "react";
 import "./App.css";
 import SideMenu from "./component/SideMenu";
-import Tasks from "./component/Apps/Tasks";
-import Notes from "./component/Apps/Notes";
-import Reminders from "./component/Apps/Reminders";
-import { fetchTasks } from "./component/Apps/Tasks/store/task.action";
 
-const apps = {
-  Tasks: Tasks,
-  Notes: Notes,
-  Reminders: Reminders,
-};
+import { fetchTasks } from "./component/Apps/Tasks/store/task.action";
+import { mainApps } from "./configs";
+
 const App = () => {
   const [activeMenu, setActiveMenu] = useState("Tasks");
-  const ActiveApp = apps[activeMenu as keyof typeof apps];
+  const ActiveApp = mainApps[activeMenu as keyof typeof mainApps];
 
   useLayoutEffect(() => {
     fetchTasks();
