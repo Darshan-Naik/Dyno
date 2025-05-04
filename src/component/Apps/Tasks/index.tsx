@@ -9,11 +9,20 @@ const Tasks = () => {
       <div className="flex w-full justify-end py-2 px-4">
         <AddTask />
       </div>
-      <div className="flex flex-col gap-2 px-2 flex-1 overflow-y-auto">
-        {taskStore.tasks.map((task) => (
-          <Task task={task} key={task.id} />
-        ))}
-      </div>
+      {!taskStore.tasks?.length ? (
+        <div className="flex-1 flex justify-center items-center flex-col gap-4">
+          <p className="text-secondary text-sm">
+            No tasks here yet! Time to add some magic ✨
+          </p>
+          <AddTask className="border" />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2 px-2 flex-1 overflow-y-auto">
+          {taskStore.tasks.map((task) => (
+            <Task task={task} key={task.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
