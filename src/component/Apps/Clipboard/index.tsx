@@ -25,7 +25,7 @@ const Clipboard = () => {
           className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start"
           key={text}
         >
-          <p className="whitespace-pre-wrap break-words">{text}</p>
+          <p className="whitespace-pre-wrap break-words font-light italic">{text}</p>
           <div className="mt-1 flex gap-2">
             <button
               title="Copy"
