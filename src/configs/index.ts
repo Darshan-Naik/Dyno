@@ -1,9 +1,9 @@
-import { FaTasks } from "react-icons/fa";
 import {
   FaRegNoteSticky,
   FaRegClock,
   FaRegFileLines,
   FaRegClipboard,
+  FaListCheck,
 } from "react-icons/fa6";
 
 import Tasks from "../component/Apps/Tasks";
@@ -15,7 +15,7 @@ import Clipboard from "../component/Apps/Clipboard";
 export const mainMenu = [
   {
     label: "Tasks",
-    Icon: FaTasks,
+    Icon: FaListCheck,
   },
   {
     label: "QuickNote",
