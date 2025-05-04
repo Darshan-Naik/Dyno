@@ -1,10 +1,16 @@
 import { FaTasks } from "react-icons/fa";
-import { FaRegNoteSticky, FaRegClock, FaRegFileLines } from "react-icons/fa6";
+import {
+  FaRegNoteSticky,
+  FaRegClock,
+  FaRegFileLines,
+  FaRegClipboard,
+} from "react-icons/fa6";
 
 import Tasks from "../component/Apps/Tasks";
 import Notes from "../component/Apps/Notes";
 import Reminders from "../component/Apps/Reminders";
 import QuickNote from "../component/Apps/QuickNote";
+import Clipboard from "../component/Apps/Clipboard";
 
 export const mainMenu = [
   {
@@ -20,6 +26,10 @@ export const mainMenu = [
     Icon: FaRegNoteSticky,
   },
   {
+    label: "Clipboard",
+    Icon: FaRegClipboard,
+  },
+  {
     label: "Reminders",
     Icon: FaRegClock,
   },
@@ -30,4 +40,5 @@ export const mainApps = {
   Notes: Notes,
   Reminders: Reminders,
   QuickNote: QuickNote,
+  Clipboard: Clipboard,
 };
