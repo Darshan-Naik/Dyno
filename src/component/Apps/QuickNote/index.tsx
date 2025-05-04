@@ -26,21 +26,21 @@ const QuickNote = () => {
       <EditorProvider>
         <Toolbar className="bg-transparent flex gap-4 items-center justify-between border-b border-gray-500 px-4 py-2 mb-2 ">
           <div className="flex gap-4 items-center">
-            <BtnUndo className="text-secondary font-normal bg-transparent" />
-            <BtnRedo className="text-secondary font-normal bg-transparent" />
+            <BtnUndo className="text-secondary font-normal bg-transparent hover:text-primary" />
+            <BtnRedo className="text-secondary font-normal bg-transparent hover:text-primary" />
             <Separator />
           </div>
           <div className="flex gap-4 items-center">
-            <BtnBold className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
-            <BtnItalic className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
-            <BtnUnderline className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
-            <BtnStrikeThrough className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
-            <BtnBulletList className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
-            <BtnNumberedList className="text-secondary font-normal bg-transparent data-[active=true]:text-primary" />
+            <BtnBold className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
+            <BtnItalic className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
+            <BtnUnderline className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
+            <BtnStrikeThrough className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
+            <BtnBulletList className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
+            <BtnNumberedList className="text-secondary font-normal bg-transparent data-[active=true]:text-primary hover:text-primary" />
           </div>
           <div className="flex gap-4 items-center">
             <Separator />
-            <BtnClearFormatting className="text-secondary font-normal bg-transparent" />
+            <BtnClearFormatting className="text-secondary font-normal bg-transparent hover:text-primary" />
           </div>
         </Toolbar>
         <Editor
@@ -49,7 +49,7 @@ const QuickNote = () => {
           onChange={onChange}
           containerProps={{
             className:
-              "flex-1 !border-none !overflow-auto styled-scrollbar max-w-full text-primary",
+              "flex-1 !border-none !overflow-auto max-w-full text-primary",
           }}
         />
       </EditorProvider>

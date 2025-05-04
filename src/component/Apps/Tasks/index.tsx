@@ -9,7 +9,7 @@ const Tasks = () => {
       <div className="flex w-full justify-end py-2 px-4">
         <AddTask />
       </div>
-      <div className="flex flex-col gap-2 px-2 flex-1 overflow-y-auto styled-scrollbar">
+      <div className="flex flex-col gap-2 px-2 flex-1 overflow-y-auto">
         {taskStore.tasks.map((task) => (
           <Task task={task} key={task.id} />
         ))}

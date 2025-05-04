@@ -5,46 +5,17 @@
 @layer {
   :root {
     color-scheme: dark;
-    --primary-bg: #111;
-    --secondary-bg: #181818;
-    --primary-text: #fff;
-    --secondary-text: #aaa;
-    --grey: #555;
-  }
-  body {
-    @apply bg-gradient-to-br from-[var(--primary-bg)] to-[var(--secondary-bg)];
+    --primary-bg: #181818;
+    --secondary-bg: #202020;
+    --primary-text: #ffffffcf;
+    --secondary-text: #9b9b9b;
+    --grey: #333333;
   }
 
   .header {
     app-region: drag;
   }
-  /* Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .styled-scrollbar {
-    scrollbar-width: thin;
-    scrollbar: var(--grey) transparent;
-  }
-  .styled-scrollbar::-webkit-scrollbar {
-    width: 0.75rem;
-  }
-
-  .styled-scrollbar:hover::-webkit-scrollbar-thumb {
-    border: 3px solid transparent;
-    background: var(--grey);
-    background-clip: content-box;
-  }
-  .styled-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .styled-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 0.375rem;
+  * {
+    scrollbar-color: var(--grey) transparent;
   }
 }
