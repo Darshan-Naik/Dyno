@@ -15,6 +15,7 @@ export const fetchClipboardData = async () => {
 };
 
 export const updateClipboardData = (text: string) => {
+  if (!text.trim()) return;
   clipboardStore.addText(text.trim());
   debouncedSetClipBoardData(toJS(clipboardStore.texts));
 };
