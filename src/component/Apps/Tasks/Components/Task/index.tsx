@@ -85,7 +85,10 @@ const Task = ({ task }: TaskProps) => {
           </button>
         </div>
         {task.createdAt && (
-          <p className="text-xs text-secondary font-extralight italic opacity-50">
+          <p
+            className="text-xs text-secondary font-extralight italic opacity-50"
+            title={`Added ${getRelativeTime(task.createdAt)}`}
+          >
             {getRelativeTime(task.createdAt)}
           </p>
         )}
