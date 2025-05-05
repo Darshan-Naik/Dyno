@@ -57,6 +57,12 @@ app.on("activate", () => {
   }
 });
 
+app.setAboutPanelOptions({
+  copyright: "© 2024. All Rights Reserved",
+  authors: ["Darshan Naik"],
+  credits: "Darshan Naik",
+});
+
 ipcMain.handle("get-clipboard-text", () => {
   return clipboard.readText();
 });
