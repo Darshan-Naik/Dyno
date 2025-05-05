@@ -1,10 +1,11 @@
 import { makeAutoObservable } from "mobx";
+import { Task } from "../../../../types/task.types";
 
 class TaskStore {
   constructor() {
     makeAutoObservable(this);
   }
-  tasks = [] as any[];
+  tasks: Task[] = [];
 
   addTask(task) {
     this.tasks.unshift(task);

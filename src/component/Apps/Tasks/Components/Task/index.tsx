@@ -6,8 +6,15 @@ import {
   FaRegTrashCan,
   FaRegCircleCheck,
 } from "react-icons/fa6";
+import { Task } from "../../../../../types/task.types";
+import { getRelativeTime } from "../../../../../utils/datetime.utils";
+import useViewTransition from "../../../../../hooks/useViewTransition";
 
-const Task = ({ task }) => {
+type TaskProps = {
+  task: Task;
+};
+
+const Task = ({ task }: TaskProps) => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     const updatedTask = {
@@ -18,7 +25,13 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div className="bg-secondary px-2 py-1 text-primary rounded flex gap-4">
+    <div
+      className="bg-secondary px-2 py-1 text-primary rounded flex gap-4"
+      style={{
+        viewTransitionName: `task-animate-${task.id}`,
+        contain: "layout",
+      }}
+    >
       <div className="mt-0.5">
         {task.completed ? (
           <FaCheck className="text-green-500" />
@@ -30,7 +43,7 @@ const Task = ({ task }) => {
         <textarea
           rows={1}
           placeholder="Title"
-          autoFocus={task.title === ""}
+          autoFocus={!task.title}
           className={twMerge(
             "text-sm focus:outline-none bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic",
             task.completed && "line-through"
@@ -52,23 +65,30 @@ const Task = ({ task }) => {
           defaultValue={task.description}
         />
       </div>
-      <div className="flex gap-3 text-sm">
-        {!task.completed && (
+      <div className="flex flex-col gap-2 h-full justify-between items-end">
+        <div className="flex gap-3 text-sm">
+          {!task.completed && (
+            <button
+              title="Mark as complete"
+              onClick={() => useViewTransition(() => completeTask(task))}
+              className="text-green-600 hover:text-green-400 transition-colors duration-300"
+            >
+              <FaRegCircleCheck />
+            </button>
+          )}
           <button
-            title="Mark as complete"
-            onClick={() => completeTask(task)}
-            className="text-green-600 hover:text-green-400 transition-colors duration-300"
+            title="Delete"
+            onClick={() => deleteTask(task)}
+            className="text-red-600 hover:text-red-400 transition-colors duration-300"
           >
-            <FaRegCircleCheck />
+            <FaRegTrashCan />
           </button>
+        </div>
+        {task.createdAt && (
+          <p className="text-xs text-secondary font-extralight italic opacity-50">
+            {getRelativeTime(task.createdAt)}
+          </p>
         )}
-        <button
-          title="Delete"
-          onClick={() => deleteTask(task)}
-          className="text-red-600 hover:text-red-400 transition-colors duration-300"
-        >
-          <FaRegTrashCan />
-        </button>
       </div>
     </div>
   );

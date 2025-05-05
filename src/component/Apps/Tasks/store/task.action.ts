@@ -3,6 +3,8 @@ import { getTasks, setTasks } from "../../../../db/tasks/tasks.db";
 import { taskStore } from "./task.store";
 import { nanoid } from "nanoid";
 import { debounce } from "../../../../utils/debounce.util";
+import { Task } from "../../../../types/task.types";
+import { getCurrentTime } from "../../../../utils/datetime.utils";
 
 const debouncedSetTasks = debounce(setTasks);
 
@@ -12,11 +14,12 @@ export const fetchTasks = async () => {
 };
 
 export const addNewTask = async () => {
-  const task = {
+  const task: Task = {
     id: nanoid(),
     title: "",
     description: "",
     completed: false,
+    createdAt: getCurrentTime(),
   };
   taskStore.addTask(task);
   await debouncedSetTasks(toJS(taskStore.tasks));
