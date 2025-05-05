@@ -78,7 +78,7 @@ const Task = ({ task }: TaskProps) => {
           )}
           <button
             title="Delete"
-            onClick={() => deleteTask(task)}
+            onClick={() => useViewTransition(() => deleteTask(task))}
             className="text-red-600 hover:text-red-400 transition-colors duration-300"
           >
             <FaRegTrashCan />
