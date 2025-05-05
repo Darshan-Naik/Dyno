@@ -47,10 +47,12 @@ const QuickNote = () => {
           value={quickNoteStore.note}
           autoFocus
           onChange={onChange}
+          placeholder="No note here yet! Time to add some magic ✨"
           containerProps={{
             className:
               "flex-1 !border-none !overflow-auto max-w-full text-primary",
           }}
+          className="placeholder:italic placeholder:font-extralight placeholder:text-xs"
         />
       </EditorProvider>
     </div>
