@@ -15,19 +15,28 @@ import {
 import "./style.css";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
+import { FaRegFloppyDisk, FaX } from "react-icons/fa6";
 
 type NoteProps = {
   value?: string;
   onChange?: (value: string) => void;
   className?: string;
+  onSave?: () => void;
+  onClose?: () => void;
 };
 
-const Note = ({ value, onChange, className }: NoteProps) => {
+const Note = ({
+  value = "",
+  onChange,
+  className,
+  onSave,
+  onClose,
+}: NoteProps) => {
   const ref = useRef(null);
 
   useEffect(() => {
     ref.current?.setMarkdown(value);
-  }, [ref.current]);
+  }, [ref.current, value]);
 
   return (
     <div
@@ -54,8 +63,27 @@ const Note = ({ value, onChange, className }: NoteProps) => {
             toolbarContents: () => (
               <div className="flex justify-between items-center w-full">
                 <UndoRedo />
-                <BoldItalicUnderlineToggles />
-                <ListsToggle />
+                <div className="flex gap-2">
+                  <BoldItalicUnderlineToggles />
+                  <ListsToggle />
+                </div>
+                <div className="p-1 grid place-items-center">
+                  {onSave && (
+                    <button
+                      title="Save to notes"
+                      className="disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={!value}
+                      onClick={onSave}
+                    >
+                      <FaRegFloppyDisk className="!text-secondary hover:!text-primary" />
+                    </button>
+                  )}
+                  {onClose && (
+                    <button title="Close" onClick={onClose}>
+                      <FaX className="!text-secondary hover:!text-primary" />
+                    </button>
+                  )}
+                </div>
               </div>
             ),
           }),

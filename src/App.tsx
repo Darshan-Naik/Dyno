@@ -9,6 +9,7 @@ import {
   fetchClipboardData,
   getClipboardText,
 } from "./component/Apps/Clipboard/store/clipboard.action";
+import { fetchNotes } from "./component/Apps/Notes/store/notes.action";
 
 const App = () => {
   const [activeMenu, setActiveMenu] = useState(
@@ -19,6 +20,7 @@ const App = () => {
   useLayoutEffect(() => {
     fetchTasks();
     fetchQuickNote();
+    fetchNotes();
     fetchClipboardData();
     const interval = setInterval(getClipboardText, 1000);
     return () => {

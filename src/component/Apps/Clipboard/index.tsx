@@ -19,33 +19,37 @@ const Clipboard = () => {
   }, []);
 
   return (
-    <div className="flex-1 bg-primary p-4 flex flex-col gap-2 overflow-auto">
-      {clipboardStore.texts.map((text, index) => (
-        <div
-          className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start"
-          key={text}
-        >
-          <p className="whitespace-pre-wrap break-words font-light italic">{text}</p>
-          <div className="mt-1 flex gap-2">
-            <button
-              title="Copy"
-              onClick={() => writeClipboardText(text)}
-              className="text-green-600 hover:text-green-400 transition-colors duration-300"
-            >
-              <FaRegCopy />
-            </button>
-            {!!index && (
+    <div className="flex-1">
+      <div className="max-h-full bg-primary p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start">
+        {clipboardStore.texts.map((text, index) => (
+          <div
+            className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start"
+            key={text}
+          >
+            <p className="whitespace-pre-wrap break-words font-light italic">
+              {text}
+            </p>
+            <div className="mt-1 flex gap-2">
               <button
-                title="Delete"
-                onClick={() => removeClipboardText(index)}
-                className="text-red-600 hover:text-red-400 transition-colors duration-300"
+                title="Copy"
+                onClick={() => writeClipboardText(text)}
+                className="text-green-600 hover:text-green-400 transition-colors duration-300"
               >
-                <FaRegTrashCan />
+                <FaRegCopy />
               </button>
-            )}
+              {!!index && (
+                <button
+                  title="Delete"
+                  onClick={() => removeClipboardText(index)}
+                  className="text-red-600 hover:text-red-400 transition-colors duration-300"
+                >
+                  <FaRegTrashCan />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
