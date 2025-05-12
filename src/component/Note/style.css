@@ -1712,6 +1712,8 @@
   white-space: nowrap;
   display: inline-block;
   pointer-events: none;
+  font-style: italic;
+  font-size: var(--text-sm);
 }
 
 ._rootContentEditableWrapper_sects_1114 {

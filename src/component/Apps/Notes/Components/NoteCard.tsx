@@ -29,7 +29,7 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
             !text && "opacity-50 italic"
           )}
         >
-          {text || "Untitled"}
+          {text || "Time to add some magic ✨"}
         </p>
         <p
           className="text-xs text-secondary font-extralight italic opacity-50 mt-2"

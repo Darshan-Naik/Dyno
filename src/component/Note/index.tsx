@@ -45,8 +45,9 @@ const Note = ({
     >
       <MDXEditor
         ref={ref}
+        placeholder="Time to add some magic ✨"
         markdown={value}
-        className="dark-theme dark-editor "
+        className="dark-theme dark-editor"
         contentEditableClassName="prose dark:prose-invert prose-headings:mt-0 prose-headings:mb-0 prose-p:mt-0 prose-p:mb-0"
         plugins={[
           headingsPlugin(),
