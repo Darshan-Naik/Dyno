@@ -16,13 +16,18 @@ import {
   UndoRedo,
 } from "@mdxeditor/editor";
 import "./style.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const QuickNote = () => {
   const ref = useRef(null);
   function onChange(value) {
     updateQuickNote(value);
   }
+
+  useEffect(() => {
+    ref.current?.setMarkdown(quickNoteStore.note);
+  }, [ref.current]);
+
   return (
     <div
       className="flex-1 p-2 flex flex-col overflow-auto"
