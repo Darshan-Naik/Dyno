@@ -19,14 +19,14 @@ const Clipboard = () => {
   }, []);
 
   return (
-    <div className="flex-1">
-      <div className="max-h-full bg-primary p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start">
+    <div className="flex-1 overflow-hidden">
+      <div className="max-h-full bg-primary p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start overflow-x-hidden">
         {clipboardStore.texts.map((text, index) => (
           <div
-            className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start"
+            className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start overflow-hidden"
             key={text}
           >
-            <p className="whitespace-pre-wrap break-words font-light italic">
+            <p className="whitespace-pre-wrap break-words font-light italic break-all">
               {text}
             </p>
             <div className="mt-1 flex gap-2">

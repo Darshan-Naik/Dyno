@@ -1,6 +1,6 @@
 import {
   FaRegNoteSticky,
-  FaRegClock,
+  // FaRegClock,
   FaRegFileLines,
   FaRegClipboard,
   FaListCheck,
@@ -29,10 +29,10 @@ export const mainMenu = [
     label: "Clipboard",
     Icon: FaRegClipboard,
   },
-  {
-    label: "Reminders",
-    Icon: FaRegClock,
-  },
+  // {
+  //   label: "Reminders",
+  //   Icon: FaRegClock,
+  // },
 ];
 
 export const mainApps = {
