@@ -1,6 +1,6 @@
 import localForage from "localforage";
 
-const DB_NAME = "tasker-db";
+const DB_NAME = "dyno-db";
 
 export const getDBInstance = (storeName: string) => {
   const DB = localForage.createInstance({
