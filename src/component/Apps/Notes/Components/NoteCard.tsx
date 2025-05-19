@@ -26,7 +26,7 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
         <p
           className={twMerge(
             "truncate max-w-48 text-sm",
-            !text && "opacity-50 italic"
+            !text && "opacity-50 italic text-secondary"
           )}
         >
           {text || "Time to add some magic ✨"}
