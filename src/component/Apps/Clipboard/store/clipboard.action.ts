@@ -16,7 +16,7 @@ export const fetchClipboardData = async () => {
 export const addClipboardData = (text: string) => {
   if (!text.trim()) return;
 
-  if (clipboardStore.texts.find((clip) => clip.text === text)) {
+  if (clipboardStore.texts.find((clip) => clip.text.trim() === text.trim())) {
     return;
   }
   if (clipboardStore.texts.length >= 20) {
@@ -34,10 +34,13 @@ export const addClipboardData = (text: string) => {
 
 export const getClipboardText = async () => {
   const clipboardText = await readClipboardText();
-  if (clipboardStore.texts[0]?.text === clipboardText) {
+  if (
+    clipboardStore.texts[0]?.text === clipboardText?.trim() ||
+    !clipboardText?.trim()
+  ) {
     return;
   }
-  addClipboardData(clipboardText);
+  addClipboardData(clipboardText.trim());
 };
 
 export const removeClipboardText = (id: string) => {
