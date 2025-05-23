@@ -6,6 +6,7 @@ import {
 } from "./store/clipboard.action";
 import { clipboardStore } from "./store/clipboard.store";
 import { FaRegCopy, FaRegTrashCan } from "react-icons/fa6";
+import { isElectron } from "../../../utils/environment";
 
 const Clipboard = () => {
   const writeClipboardText = async (text: string) => {
@@ -18,6 +19,15 @@ const Clipboard = () => {
 
   return (
     <div className="flex-1 overflow-hidden">
+      {!isElectron() && (
+        <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 px-4 py-3 mb-4 rounded-md text-center">
+          <p className="text-sm">
+            ⚠️ Auto-tracing of clipboard content is not available in the web
+            version. For the full clipboard experience with automatic content
+            tracking, please use our desktop application.
+          </p>
+        </div>
+      )}
       <div className="max-h-full bg-primary p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start overflow-x-hidden">
         {clipboardStore.texts.map((clip, index) => (
           <div
