@@ -17,3 +17,9 @@ export const clipboardDB = db.table<{
   id: string;
   text: string;
 }>("clipboard");
+
+export const dropDB = () => {
+  db.transaction("rw", db.tables, () => {
+    db.tables.forEach((table) => table.clear());
+  });
+};

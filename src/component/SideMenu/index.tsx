@@ -2,6 +2,9 @@ import { mainMenu } from "../../configs";
 import SideBarItem from "./SideBarItem";
 import { isElectron } from "../../utils/environment";
 import icon from "../../assets/icons/icon.png";
+import { useAuth } from "../../contexts/AuthContext";
+import { FaSignOutAlt } from "react-icons/fa";
+import { dropDB } from "../../db/db";
 
 type SideMenuProps = {
   handleMenuClick: (menu: string) => void;
@@ -10,6 +13,12 @@ type SideMenuProps = {
 
 const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
   const isWeb = !isElectron();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    dropDB();
+  };
 
   return (
     <div className="max-w-60 bg-secondary h-full px-2 w-1/6 sidebar flex flex-col min-w-28">
@@ -30,6 +39,28 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
             active={activeMenu === menu.label}
           />
         ))}
+      </div>
+      <div className="border-t border-gray-700 py-2 mt-auto">
+        <div className="flex items-center gap-2 px-2 mb-2">
+          <img
+            src={user?.photoURL || icon}
+            alt="Profile"
+            className="w-8 h-8 rounded-full"
+          />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-primary truncate">
+              {user?.displayName || "User"}
+            </p>
+            <p className="text-xs text-secondary truncate">{user?.email}</p>
+          </div>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
+        >
+          <FaSignOutAlt className="w-4 h-4" />
+          <span>Logout</span>
+        </button>
       </div>
     </div>
   );

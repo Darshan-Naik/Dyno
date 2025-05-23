@@ -47,11 +47,13 @@
     "vite": "^5.4.19"
   },
   "dependencies": {
+    "@firebase/auth": "^1.10.6",
     "@mdxeditor/editor": "^3.32.2",
     "@tailwindcss/vite": "^4.1.5",
     "dayjs": "^1.11.13",
     "dexie": "^4.0.11",
     "electron-squirrel-startup": "^1.0.1",
+    "firebase": "^11.8.1",
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.0",
     "nanoid": "^5.1.5",
