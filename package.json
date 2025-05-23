@@ -10,7 +10,9 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx .",
-    "build:web": "vite build"
+    "build:web": "vite build",
+    "build:win": "electron-forge make --platform=win32",
+    "build:mac": "electron-forge make --platform=darwin"
   },
   "keywords": [],
   "author": {
