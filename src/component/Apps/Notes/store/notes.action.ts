@@ -1,11 +1,12 @@
 import { notesStore } from "./notes.store";
-import { debounce } from "../../../../utils/debounce.util";
-import { getNotes, setNotes } from "../../../../db/notes/notes.db";
+import {
+  getNotes,
+  updateNote as updateNoteDB,
+  addNote as addNoteDB,
+  deleteNote as deleteNoteDB,
+} from "../../../../db/notes/notes.db";
 import { nanoid } from "nanoid";
 import { getCurrentTime } from "../../../../utils/datetime.utils";
-import { toJS } from "mobx";
-
-const debouncedSetNotes = debounce(setNotes);
 
 export const fetchNotes = async () => {
   const notes = await getNotes();
@@ -13,9 +14,10 @@ export const fetchNotes = async () => {
 };
 
 export const updateNote = async (value: string, id: string) => {
-  notesStore.updateNote(value, id);
-  const notes = notesStore.notes;
-  await debouncedSetNotes(toJS(notes));
+  const note = notesStore.updateNote(value, id);
+  if (note) {
+    await updateNoteDB(note);
+  }
 };
 
 export const createNote = async (value = "") => {
@@ -25,11 +27,10 @@ export const createNote = async (value = "") => {
     createdAt: getCurrentTime(),
   };
   notesStore.createNote(note);
-  const notes = notesStore.notes;
-  await debouncedSetNotes(toJS(notes));
+  await addNoteDB(note);
 };
+
 export const removeNote = async (id: string) => {
   notesStore.removeNote(id);
-  const notes = notesStore.notes;
-  await debouncedSetNotes(toJS(notes));
+  await deleteNoteDB(id);
 };

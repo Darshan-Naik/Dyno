@@ -15,6 +15,7 @@ class NotesStore {
     if (note) {
       note.value = value;
     }
+    return note;
   }
   createNote(note: Note) {
     this.notes.unshift(note);
