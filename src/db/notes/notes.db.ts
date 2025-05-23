@@ -1,23 +1,18 @@
 import { Note } from "../../types/notes.types";
-import { notesDB } from "../dexie";
+import { notesDB } from "../db";
 
-export const getNotes = async () => {
+export const getNotesFromDB = async () => {
   return await notesDB.toArray();
 };
 
-export const setNotes = async (notes: Note[]) => {
-  await notesDB.clear();
-  await notesDB.bulkAdd(notes);
-};
-
-export const addNote = async (note: Note) => {
+export const addNoteInDB = async (note: Note) => {
   await notesDB.add(note);
 };
 
-export const updateNote = async (note: Note) => {
+export const updateNoteInDB = async (note: Note) => {
   await notesDB.update(note.id, note);
 };
 
-export const deleteNote = async (id: string) => {
+export const deleteNoteInDB = async (id: string) => {
   await notesDB.delete(id);
 };

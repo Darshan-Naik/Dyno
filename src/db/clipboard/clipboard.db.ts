@@ -1,12 +1,15 @@
-import { getDBInstance } from "..";
+import { ClipboardText } from "src/types/clipboard.types";
+import { clipboardDB } from "../db";
 
-const clipBoard = getDBInstance("clipboard-db");
-
-export const getClipBoardData = async () => {
-  const texts = await clipBoard.getItem<string[]>("clipboard");
+export const getClipBoardDataFromDB = async () => {
+  const texts = await clipboardDB.toArray();
   return texts || [];
 };
 
-export const setClipBoardData = async (texts: string[]) => {
-  await clipBoard.setItem("clipboard", texts);
+export const addClipBoardDataInDB = async (clipboardText: ClipboardText) => {
+  await clipboardDB.add(clipboardText);
+};
+
+export const deleteClipBoardDataInDB = async (id: string) => {
+  await clipboardDB.delete(id);
 };

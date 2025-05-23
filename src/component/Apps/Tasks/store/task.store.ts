@@ -16,15 +16,16 @@ class TaskStore {
     );
   }
   completeTask(task) {
-    this.tasks = this.tasks.map((t) =>
-      t.id === task.id ? { ...t, completed: true } : t
-    );
+    const updatedTask = { ...task, completed: !task.completed };
+
+    this.tasks = this.tasks.map((t) => (t.id === task.id ? updatedTask : t));
+    return updatedTask;
   }
   setTasks(task) {
     this.tasks = task;
   }
-  removeTask(task) {
-    this.tasks = this.tasks.filter((t) => t.id !== task.id);
+  removeTask(id) {
+    this.tasks = this.tasks.filter((t) => t.id !== id);
   }
 }
 export const taskStore = new TaskStore();

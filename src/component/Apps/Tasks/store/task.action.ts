@@ -1,15 +1,20 @@
 import { toJS } from "mobx";
-import { getTasks, setTasks } from "../../../../db/tasks/tasks.db";
+import {
+  addTaskInDB,
+  deleteTaskInDB,
+  getTasksFromDB,
+  updateTaskInDB,
+} from "../../../../db/tasks/tasks.db";
 import { taskStore } from "./task.store";
 import { nanoid } from "nanoid";
-import { debounce } from "../../../../utils/debounce.util";
 import { Task } from "../../../../types/task.types";
 import { getCurrentTime } from "../../../../utils/datetime.utils";
+import { debounce } from "../../../../utils/debounce.util";
 
-const debouncedSetTasks = debounce(setTasks);
+const debouncedUpdateTaskInDB = debounce(updateTaskInDB);
 
 export const fetchTasks = async () => {
-  const tasks = await getTasks();
+  const tasks = await getTasksFromDB();
   taskStore.setTasks(tasks);
 };
 
@@ -22,20 +27,20 @@ export const addNewTask = async () => {
     createdAt: getCurrentTime(),
   };
   taskStore.addTask(task);
-  await debouncedSetTasks(toJS(taskStore.tasks));
+  await addTaskInDB(task);
 };
 
 export const deleteTask = async (task) => {
-  taskStore.removeTask(task);
-  await debouncedSetTasks(toJS(taskStore.tasks));
+  taskStore.removeTask(task.id);
+  await deleteTaskInDB(task.id);
 };
 
 export const completeTask = async (task) => {
-  taskStore.completeTask(task);
-  await debouncedSetTasks(toJS(taskStore.tasks));
+  const updatedTask = taskStore.completeTask(task);
+  await updateTaskInDB(updatedTask);
 };
 
 export const updateTask = async (task) => {
   taskStore.updateTask(task);
-  await debouncedSetTasks(toJS(taskStore.tasks));
+  await debouncedUpdateTaskInDB(task);
 };

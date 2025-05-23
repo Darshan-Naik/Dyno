@@ -1,29 +1,21 @@
 import { makeAutoObservable } from "mobx";
+import { ClipboardText } from "../../../../types/clipboard.types";
 
 class ClipboardStore {
   constructor() {
     makeAutoObservable(this);
   }
-  texts: string[] = [];
+  texts: ClipboardText[] = [];
 
-  setTexts(texts: string[]) {
+  setTexts(texts: ClipboardText[]) {
     this.texts = texts;
   }
 
-  addText(text: string) {
-    if (this.texts.includes(text)) {
-      return;
-    }
-    if (this.texts.length >= 20) {
-      this.texts.pop();
-    }
+  addText(text: ClipboardText) {
     this.texts.unshift(text);
   }
-
-  removeText(index: number) {
-    if (index >= 0 && index < this.texts.length) {
-      this.texts.splice(index, 1);
-    }
+  removeText(id: string) {
+    this.texts = this.texts.filter((text) => text.id !== id);
   }
 }
 export const clipboardStore = new ClipboardStore();

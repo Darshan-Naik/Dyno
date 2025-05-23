@@ -1,12 +1,18 @@
-import { getDBInstance } from "..";
+import { tasksDB } from "../db";
+import { Task } from "../../types/task.types";
 
-const taskDB = getDBInstance("tasks-db");
-
-export const getTasks = async () => {
-  const tasks = await taskDB.getItem("tasks");
-  return tasks || [];
+export const getTasksFromDB = async (): Promise<Task[]> => {
+  return await tasksDB.toArray();
 };
 
-export const setTasks = async (tasks) => {
-  await taskDB.setItem("tasks", tasks);
+export const updateTaskInDB = async (task: Task) => {
+  await tasksDB.update(task.id, task);
+};
+
+export const deleteTaskInDB = async (taskId: string) => {
+  await tasksDB.delete(taskId);
+};
+
+export const addTaskInDB = async (task: Task) => {
+  await tasksDB.add(task);
 };

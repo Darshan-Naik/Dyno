@@ -1,22 +1,25 @@
 import { notesStore } from "./notes.store";
 import {
-  getNotes,
-  updateNote as updateNoteDB,
-  addNote as addNoteDB,
-  deleteNote as deleteNoteDB,
+  addNoteInDB,
+  deleteNoteInDB,
+  getNotesFromDB,
+  updateNoteInDB,
 } from "../../../../db/notes/notes.db";
 import { nanoid } from "nanoid";
 import { getCurrentTime } from "../../../../utils/datetime.utils";
+import { debounce } from "../../../../utils/debounce.util";
+
+const debouncedUpdateNoteInDB = debounce(updateNoteInDB);
 
 export const fetchNotes = async () => {
-  const notes = await getNotes();
+  const notes = await getNotesFromDB();
   notesStore.updateNotes(notes);
 };
 
 export const updateNote = async (value: string, id: string) => {
   const note = notesStore.updateNote(value, id);
   if (note) {
-    await updateNoteDB(note);
+    await debouncedUpdateNoteInDB(note);
   }
 };
 
@@ -27,10 +30,10 @@ export const createNote = async (value = "") => {
     createdAt: getCurrentTime(),
   };
   notesStore.createNote(note);
-  await addNoteDB(note);
+  await addNoteInDB(note);
 };
 
 export const removeNote = async (id: string) => {
   notesStore.removeNote(id);
-  await deleteNoteDB(id);
+  await deleteNoteInDB(id);
 };

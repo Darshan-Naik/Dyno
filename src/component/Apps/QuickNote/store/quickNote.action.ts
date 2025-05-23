@@ -1,18 +1,18 @@
 import { quickNoteStore } from "./quickNote.store";
 import { debounce } from "../../../../utils/debounce.util";
 import {
-  getQuickNote,
-  setQuickNote,
+  getQuickNoteFromDB,
+  updateQuickNoteInDB,
 } from "../../../../db/quickNote/quickNote.db";
 
-const debouncedSetTasks = debounce(setQuickNote);
+const debouncedUpdateQuickNoteInDB = debounce(updateQuickNoteInDB);
 
 export const fetchQuickNote = async () => {
-  const note = await getQuickNote();
+  const note = await getQuickNoteFromDB();
   quickNoteStore.updateNote(note);
 };
 
 export const updateQuickNote = async (note: string) => {
   quickNoteStore.updateNote(note);
-  await debouncedSetTasks(note);
+  await debouncedUpdateQuickNoteInDB(note);
 };

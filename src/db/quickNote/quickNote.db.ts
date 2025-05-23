@@ -1,12 +1,10 @@
-import { getDBInstance } from "..";
+import { quickNoteDB } from "../db";
 
-const quickNote = getDBInstance("quickNote-db");
-
-export const getQuickNote = async () => {
-  const note = await quickNote.getItem<string>("quickNote");
+export const getQuickNoteFromDB = async () => {
+  const note = await quickNoteDB.get("quickNote");
   return note || "";
 };
 
-export const setQuickNote = async (note: string) => {
-  await quickNote.setItem("quickNote", note);
+export const updateQuickNoteInDB = async (note: string) => {
+  await quickNoteDB.put("quickNote", note);
 };

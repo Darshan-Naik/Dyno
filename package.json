@@ -51,7 +51,6 @@
     "dayjs": "^1.11.13",
     "dexie": "^4.0.11",
     "electron-squirrel-startup": "^1.0.1",
-    "localforage": "^1.10.0",
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.0",
     "nanoid": "^5.1.5",
