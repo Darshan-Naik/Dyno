@@ -6,6 +6,7 @@ import {
   deleteClipBoardDataInDB,
 } from "../../../../db/clipboard/clipboard.db";
 import { nanoid } from "nanoid";
+import { isElectron } from "../../../../utils/environment";
 
 export const fetchClipboardData = async () => {
   const texts = await getClipBoardDataFromDB();
@@ -32,7 +33,7 @@ export const addClipboardData = (text: string) => {
 };
 
 export const getClipboardText = async () => {
-  const clipboardText = await window.electron.getClipboardText();
+  const clipboardText = await readClipboardText();
   if (clipboardStore.texts[0]?.text === clipboardText) {
     return;
   }
@@ -42,4 +43,20 @@ export const getClipboardText = async () => {
 export const removeClipboardText = (id: string) => {
   clipboardStore.removeText(id);
   deleteClipBoardDataInDB(id);
+};
+
+export const readClipboardText = async () => {
+  if (isElectron()) {
+    return await window.electron.getClipboardText();
+  } else {
+    return await navigator.clipboard.readText();
+  }
+};
+
+export const writeClipboardText = async (text: string) => {
+  if (isElectron()) {
+    await window.electron.setClipboardText(text);
+  } else {
+    await navigator.clipboard.writeText(text);
+  }
 };

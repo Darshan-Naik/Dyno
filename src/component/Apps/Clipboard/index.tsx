@@ -8,8 +8,8 @@ import { clipboardStore } from "./store/clipboard.store";
 import { FaRegCopy, FaRegTrashCan } from "react-icons/fa6";
 
 const Clipboard = () => {
-  const writeClipboardText = (text: string) => {
-    window.electron.setClipboardText(text);
+  const writeClipboardText = async (text: string) => {
+    writeClipboardText(text);
   };
 
   useEffect(() => {
