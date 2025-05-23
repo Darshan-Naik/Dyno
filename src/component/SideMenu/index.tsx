@@ -3,7 +3,7 @@ import SideBarItem from "./SideBarItem";
 import { isElectron } from "../../utils/environment";
 import icon from "../../assets/icons/icon.png";
 import { useAuth } from "../../contexts/AuthContext";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaRightFromBracket } from "react-icons/fa6";
 import { dropDB } from "../../db/db";
 
 type SideMenuProps = {
@@ -45,10 +45,10 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
           <img
             src={user?.photoURL || icon}
             alt="Profile"
-            className="w-8 h-8 rounded-full"
+            className="w-7 h-7 rounded-full"
           />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-primary truncate">
+            <p className="text-xs text-primary truncate">
               {user?.displayName || "User"}
             </p>
             <p className="text-xs text-secondary truncate">{user?.email}</p>
@@ -58,7 +58,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
           onClick={handleLogout}
           className="w-full flex items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
         >
-          <FaSignOutAlt className="w-4 h-4" />
+          <FaRightFromBracket className="size-3.5" />
           <span>Logout</span>
         </button>
       </div>

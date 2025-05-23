@@ -20,7 +20,7 @@ const Login: React.FC = () => {
           onClick={signInWithGoogle}
           className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-none  m-5 hover:scale-105 transition-all duration-300 shadow-md"
         >
-          <FaGoogle className="w-5 h-5" />
+          <FaGoogle className="size-4" />
           Sign in with Google
         </button>
         <p className="text-center text-sm font-light text-secondary">
