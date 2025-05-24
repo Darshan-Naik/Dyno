@@ -6,6 +6,7 @@ import {
   User,
 } from "firebase/auth";
 import { auth } from "../configs/firebase";
+import Loader from "../component/Loader";
 
 interface AuthContextType {
   user: User | null;
@@ -27,8 +28,8 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(auth.currentUser);
+  const [loading, setLoading] = useState(!auth.currentUser);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -65,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {loading ? <Loader /> : children}
     </AuthContext.Provider>
   );
 };
