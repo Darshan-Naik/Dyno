@@ -26,3 +26,5 @@ export const dropDB = () => {
     db.tables.forEach((table) => table.clear());
   });
 };
+
+export { db };

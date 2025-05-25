@@ -1,4 +1,4 @@
-import { ClipboardText } from "src/types/clipboard.types";
+import { ClipboardText } from "../../types/clipboard.types";
 import { clipboardDB } from "../db";
 
 export const getClipBoardDataFromDB = async () => {
@@ -12,4 +12,9 @@ export const addClipBoardDataInDB = async (clipboardText: ClipboardText) => {
 
 export const deleteClipBoardDataInDB = async (id: string) => {
   await clipboardDB.delete(id);
+};
+
+export const setClipBoardDataInDB = async (clipboardTexts: ClipboardText[]) => {
+  await clipboardDB.clear();
+  await clipboardDB.bulkAdd(clipboardTexts);
 };

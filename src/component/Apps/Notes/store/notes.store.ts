@@ -7,7 +7,7 @@ class NotesStore {
   }
   notes: Note[] = [];
 
-  updateNotes(notes: Note[]) {
+  setNotes(notes: Note[]) {
     this.notes = notes;
   }
   updateNote(value: string, id: string) {

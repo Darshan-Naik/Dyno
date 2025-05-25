@@ -16,3 +16,8 @@ export const updateNoteInDB = async (note: Note) => {
 export const deleteNoteInDB = async (id: string) => {
   await notesDB.delete(id);
 };
+
+export const setNotesInDB = async (notes: Note[]) => {
+  await notesDB.clear();
+  await notesDB.bulkAdd(notes);
+};

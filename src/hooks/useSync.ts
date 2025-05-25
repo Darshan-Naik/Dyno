@@ -1,16 +1,21 @@
 import { useEffect } from "react";
-import { createSyncService } from "../db/syncService";
+import { getSyncService } from "../db/syncService";
 
-export const useSync = (userId: string) => {
+export const useSync = (userId: string | undefined) => {
   useEffect(() => {
     if (!userId) return;
-    const syncService = createSyncService(userId);
-    // Initialize sync service
-    syncService.initializeSync().catch(console.error);
 
-    // Cleanup on unmount
-    return () => {
-      syncService.cleanup();
+    const syncService = getSyncService();
+    syncService.setUserId(userId);
+
+    // Then sync with cloud in background
+    const syncWithCloud = async () => {
+      try {
+        await syncService.syncFromCloud();
+      } catch (error) {
+        console.error("Failed to sync with cloud:", error);
+      }
     };
+    syncWithCloud();
   }, [userId]);
 };

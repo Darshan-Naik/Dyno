@@ -16,3 +16,8 @@ export const deleteTaskInDB = async (taskId: string) => {
 export const addTaskInDB = async (task: Task) => {
   await tasksDB.add(task);
 };
+
+export const setTasksInDB = async (tasks: Task[]) => {
+  await tasksDB.clear();
+  await tasksDB.bulkAdd(tasks);
+};

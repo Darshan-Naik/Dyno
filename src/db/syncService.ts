@@ -1,186 +1,90 @@
 import { db as firestore } from "../configs/firebase";
-import {
-  collection,
-  doc,
-  setDoc,
-  onSnapshot,
-  query,
-  deleteDoc,
-} from "firebase/firestore";
-import { notesDB, tasksDB, quickNoteDB, clipboardDB } from "./db";
+import { collection, doc, getDocs, query, getDoc } from "firebase/firestore";
 import { Note } from "../types/notes.types";
 import { Task } from "../types/task.types";
+import { ClipboardText } from "../types/clipboard.types";
+import { syncNote } from "../component/Apps/Notes/store/notes.action";
+import { syncTask } from "../component/Apps/Tasks/store/task.action";
+import { syncQuickNote } from "../component/Apps/QuickNote/store/quickNote.action";
+import { syncClipboard } from "../component/Apps/Clipboard/store/clipboard.action";
 
 class SyncService {
-  private unsubscribeFunctions: (() => void)[] = [];
-  private userId: string;
+  private static instance: SyncService;
+  private _userId = "";
 
-  constructor(userId: string) {
-    this.userId = userId;
+  static getInstance(): SyncService {
+    if (!SyncService.instance) {
+      SyncService.instance = new SyncService();
+    }
+    return SyncService.instance;
   }
 
-  // Initialize sync for all collections
-  async initializeSync() {
-    await this.syncNotes();
-    await this.syncTasks();
-    await this.syncQuickNote();
-    await this.syncClipboard();
+  setUserId(userId: string) {
+    this._userId = userId;
   }
 
-  // Sync Notes
-  private async syncNotes() {
-    const notesCollection = collection(firestore, `users/${this.userId}/notes`);
+  get userId(): string {
+    return this._userId;
+  }
 
-    // Listen for remote changes
+  // Sync from cloud to local on app open
+  async syncFromCloud() {
+    await this.syncNotesFromCloud();
+    await this.syncTasksFromCloud();
+    await this.syncQuickNoteFromCloud();
+    await this.syncClipboardFromCloud();
+  }
+
+  // Sync Notes from cloud to local
+  private async syncNotesFromCloud() {
+    const notesCollection = collection(
+      firestore,
+      `users/${this._userId}/notes`
+    );
     const q = query(notesCollection);
-    const unsubscribe = onSnapshot(q, async (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        const noteData = change.doc.data() as Note;
-
-        if (change.type === "added" || change.type === "modified") {
-          await notesDB.put(noteData);
-        } else if (change.type === "removed") {
-          await notesDB.delete(noteData.id);
-        }
-      });
-    });
-
-    this.unsubscribeFunctions.push(unsubscribe);
-
-    // Listen for local changes
-    notesDB.hook("creating", (primKey: string, obj) => {
-      setDoc(doc(notesCollection, primKey), obj);
-    });
-
-    notesDB.hook("updating", (modifications, primKey: string, obj) => {
-      setDoc(doc(notesCollection, primKey), { ...obj, ...modifications });
-    });
-
-    notesDB.hook("deleting", (primKey: string) => {
-      deleteDoc(doc(notesCollection, primKey));
-    });
+    const snapshot = await getDocs(q);
+    const notes = snapshot.docs.map((doc) => doc.data() as Note);
+    syncNote(notes);
   }
 
-  // Sync Tasks
-  private async syncTasks() {
-    const tasksCollection = collection(firestore, `users/${this.userId}/tasks`);
-
-    // Listen for remote changes
+  // Sync Tasks from cloud to local
+  private async syncTasksFromCloud() {
+    const tasksCollection = collection(
+      firestore,
+      `users/${this._userId}/tasks`
+    );
     const q = query(tasksCollection);
-    const unsubscribe = onSnapshot(q, async (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        const taskData = change.doc.data() as Task;
-
-        if (change.type === "added" || change.type === "modified") {
-          await tasksDB.put(taskData);
-        } else if (change.type === "removed") {
-          await tasksDB.delete(taskData.id);
-        }
-      });
-    });
-
-    this.unsubscribeFunctions.push(unsubscribe);
-
-    // Listen for local changes
-    tasksDB.hook("creating", (primKey: string, obj) => {
-      setDoc(doc(tasksCollection, primKey), obj);
-    });
-
-    tasksDB.hook("updating", (modifications, primKey: string, obj) => {
-      setDoc(doc(tasksCollection, primKey), { ...obj, ...modifications });
-    });
-
-    tasksDB.hook("deleting", (primKey: string) => {
-      deleteDoc(doc(tasksCollection, primKey));
-    });
+    const snapshot = await getDocs(q);
+    const tasks = snapshot.docs.map((doc) => doc.data() as Task);
+    syncTask(tasks);
   }
 
-  // Sync Quick Note
-  private async syncQuickNote() {
+  // Sync Quick Note from cloud to local
+  private async syncQuickNoteFromCloud() {
     const quickNoteCollection = collection(
       firestore,
-      `users/${this.userId}/quickNote`
+      `users/${this._userId}/quickNote`
     );
-
-    // Listen for remote changes
-    const q = query(quickNoteCollection);
-    const unsubscribe = onSnapshot(q, async (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        const quickNoteData = change.doc.data() as any;
-
-        if (change.type === "added" || change.type === "modified") {
-          await quickNoteDB.put(quickNoteData, quickNoteData.id);
-        } else if (change.type === "removed") {
-          await quickNoteDB.delete(quickNoteData.id);
-        }
-      });
-    });
-
-    this.unsubscribeFunctions.push(unsubscribe);
-
-    // Listen for local changes
-    quickNoteDB.hook("creating", (primKey: string, obj) => {
-      setDoc(doc(quickNoteCollection, primKey), obj);
-    });
-
-    quickNoteDB.hook("updating", (modifications, primKey: string, obj) => {
-      setDoc(doc(quickNoteCollection, primKey), {
-        ...obj,
-        ...modifications,
-      });
-    });
-
-    quickNoteDB.hook("deleting", (primKey: string) => {
-      deleteDoc(doc(quickNoteCollection, primKey));
-    });
+    const docRef = doc(quickNoteCollection, "quickNote");
+    const docSnap = await getDoc(docRef);
+    const quickNote = docSnap.exists() ? docSnap.data() : null;
+    if (quickNote) {
+      syncQuickNote(quickNote as { text: string });
+    }
   }
 
-  // Sync Clipboard
-  private async syncClipboard() {
+  // Sync Clipboard from cloud to local
+  private async syncClipboardFromCloud() {
     const clipboardCollection = collection(
       firestore,
-      `users/${this.userId}/clipboard`
+      `users/${this._userId}/clipboard`
     );
-
-    // Listen for remote changes
     const q = query(clipboardCollection);
-    const unsubscribe = onSnapshot(q, async (snapshot) => {
-      snapshot.docChanges().forEach(async (change) => {
-        const clipboardData = change.doc.data() as any;
-
-        if (change.type === "added" || change.type === "modified") {
-          await clipboardDB.put(clipboardData);
-        } else if (change.type === "removed") {
-          await clipboardDB.delete(clipboardData.id);
-        }
-      });
-    });
-
-    this.unsubscribeFunctions.push(unsubscribe);
-
-    // Listen for local changes
-    clipboardDB.hook("creating", (primKey: string, obj) => {
-      setDoc(doc(clipboardCollection, primKey), obj);
-    });
-
-    clipboardDB.hook("updating", (modifications, primKey: string, obj) => {
-      setDoc(doc(clipboardCollection, primKey), {
-        ...obj,
-        ...modifications,
-      });
-    });
-
-    clipboardDB.hook("deleting", async (primKey: string) => {
-      await deleteDoc(doc(clipboardCollection, primKey));
-    });
-  }
-
-  // Cleanup function to unsubscribe from all listeners
-  cleanup() {
-    this.unsubscribeFunctions.forEach((unsubscribe) => unsubscribe());
-    this.unsubscribeFunctions = [];
+    const snapshot = await getDocs(q);
+    const clips = snapshot.docs.map((doc) => doc.data() as ClipboardText);
+    syncClipboard(clips);
   }
 }
 
-// Export a function to create a new sync service instance with a user ID
-export const createSyncService = (userId: string) => new SyncService(userId);
+// Export a function to get the singleton instance
+export const getSyncService = () => SyncService.getInstance();
