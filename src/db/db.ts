@@ -12,7 +12,10 @@ db.version(1).stores({
 
 export const notesDB = db.table<Note>("notes");
 export const tasksDB = db.table<Task>("tasks");
-export const quickNoteDB = db.table<string>("quickNote");
+export const quickNoteDB = db.table<{
+  id: string;
+  text: string;
+}>("quickNote");
 export const clipboardDB = db.table<{
   id: string;
   text: string;

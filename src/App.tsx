@@ -3,6 +3,7 @@ import "./App.css";
 import SideMenu from "./component/SideMenu";
 import Login from "./component/Login";
 import { useAuth } from "./contexts/AuthContext";
+import { useSync } from "./hooks/useSync";
 
 import { fetchTasks } from "./component/Apps/Tasks/store/task.action";
 import { fetchQuickNote } from "./component/Apps/QuickNote/store/quickNote.action";
@@ -19,6 +20,9 @@ const App = () => {
     localStorage.getItem("activeMenu") || "Tasks"
   );
   const ActiveApp = mainApps[activeMenu as keyof typeof mainApps];
+
+  // Initialize sync when user is authenticated
+  useSync(user?.uid);
 
   useLayoutEffect(() => {
     if (user) {
