@@ -1,12 +1,15 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { MAC_APP_DOWNLOAD_URL } from "../configs/vercel";
+import {
+  MAC_APP_DOWNLOAD_URL,
+  WINDOWS_APP_DOWNLOAD_URL,
+} from "../configs/vercel";
 import icon from "../assets/icons/icon.png";
 
 const DownloadPage: React.FC = () => {
-  const handleDownload = async () => {
+  const handleDownload = async (url: string) => {
     try {
-      window.open(MAC_APP_DOWNLOAD_URL, "_blank");
+      window.open(url, "_blank");
     } catch (error) {
       console.error("Error downloading the app:", error);
     }
@@ -50,16 +53,31 @@ const DownloadPage: React.FC = () => {
               </ul>
             </div>
 
-            <Button
-              onClick={handleDownload}
-              className="px-4 py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
-            >
-              Download for macOS
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col items-center">
+                <Button
+                  onClick={() => handleDownload(MAC_APP_DOWNLOAD_URL)}
+                  className="px-4 py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
+                >
+                  Download for macOS
+                </Button>
+                <p className="text-xs text-secondary mt-1">
+                  Version 1.0.0 • macOS 10.15 or later
+                </p>
+              </div>
 
-            <p className="text-xs text-secondary mt-1">
-              Version 1.0.0 • macOS 10.15 or later
-            </p>
+              <div className="flex flex-col items-center">
+                <Button
+                  onClick={() => handleDownload(WINDOWS_APP_DOWNLOAD_URL)}
+                  className="px-4 py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
+                >
+                  Download for Windows
+                </Button>
+                <p className="text-xs text-secondary mt-1">
+                  Version 1.0.0 • Windows 10 or later
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
