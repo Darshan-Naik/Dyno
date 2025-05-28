@@ -3,7 +3,7 @@ import SideBarItem from "./SideBarItem";
 import { isElectron } from "../../utils/environment";
 import icon from "../../assets/icons/icon.png";
 import { useAuth } from "../../contexts/AuthContext";
-import { FaRightFromBracket } from "react-icons/fa6";
+import { FaRightFromBracket, FaDownload } from "react-icons/fa6";
 import { dropDB } from "../../db/db";
 
 type SideMenuProps = {
@@ -18,6 +18,10 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
   const handleLogout = () => {
     logout();
     dropDB();
+  };
+
+  const handleDownload = () => {
+    window.location.href = "/download";
   };
 
   return (
@@ -41,6 +45,15 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
         ))}
       </div>
       <div className="border-t border-gray-700 py-2 mt-auto">
+        {isWeb && (
+          <button
+            onClick={handleDownload}
+            className="w-full px-3 py-1 flex items-center justify-center gap-2 bg-gradient-to-r to-blue-500 from-purple-600 hover:to-blue-600 hover:from-purple-700 rounded-full transition-all duration-200  my-2"
+          >
+            <FaDownload className="size-3" />
+            <span className="text-xs truncate">Download App</span>
+          </button>
+        )}
         <div className="flex items-center gap-2 px-2 mb-2">
           <img
             src={user?.photoURL || icon}

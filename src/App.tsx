@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import "./App.css";
 import SideMenu from "./component/SideMenu";
 import Login from "./component/Login";
+import DownloadPage from "./component/DownloadPage";
 import { useAuth } from "./contexts/AuthContext";
 import { useSync } from "./hooks/useSync";
 
@@ -41,6 +42,13 @@ const App = () => {
     setActiveMenu(menu);
     localStorage.setItem("activeMenu", menu);
   };
+
+  // Check if we're on the download page
+  const isDownloadPage = window.location.pathname === "/download";
+
+  if (isDownloadPage) {
+    return <DownloadPage />;
+  }
 
   if (!user) {
     return <Login />;
