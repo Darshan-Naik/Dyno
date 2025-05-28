@@ -1,10 +1,12 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { FaGoogle } from "react-icons/fa6";
+import { FaGoogle, FaDownload } from "react-icons/fa6";
 import icon from "../assets/icons/icon.png";
+import { isElectron } from "../utils/environment";
 
 const Login: React.FC = () => {
   const { signInWithGoogle } = useAuth();
+  const isWeb = !isElectron();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-primary">
@@ -23,6 +25,15 @@ const Login: React.FC = () => {
           <FaGoogle className="size-4" />
           Sign in with Google
         </button>
+        {isWeb && (
+          <a
+            href="/download"
+            className="w-full underline flex items-center justify-center gap-2 text-secondary hover:text-primary transition-colors text-xs"
+          >
+            <FaDownload className="size-2.5" />
+            Download Desktop App
+          </a>
+        )}
         <p className="text-center text-sm font-light text-secondary">
           &copy; 2025 Dyno. All rights reserved.
         </p>
