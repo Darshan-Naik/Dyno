@@ -5,6 +5,7 @@ import {
   WINDOWS_APP_DOWNLOAD_URL,
 } from "../configs/vercel";
 import icon from "../assets/icons/icon.png";
+import { FaGithub } from "react-icons/fa6";
 
 const DownloadPage: React.FC = () => {
   const handleDownload = async (url: string) => {
@@ -20,15 +21,15 @@ const DownloadPage: React.FC = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto text-center">
           <img src={icon} alt="Dyno Logo" className="w-24 h-24 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+          <h1 className="text-4xl italic font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
             Download Dyno
           </h1>
-          <p className="text-xl text-secondary mb-8">
+          <p className=" text-secondary mb-8">
             Experience the power of productivity with Dyno. Download now and
             transform your workflow.
           </p>
 
-          <div className="space-y-8">
+          <div>
             <div className="bg-secondary p-6 rounded-lg border border-gray-700">
               <h2 className="text-xl font-semibold text-primary mb-4">
                 Key Features
@@ -53,7 +54,16 @@ const DownloadPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center mb-4 text-xs mt-5">
+              <a
+                href="/"
+                className="text-secondary hover:text-primary transition-colors inline-flex items-center"
+              >
+                ← Back to Web App
+              </a>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <div className="flex flex-col items-center">
                 <Button
                   onClick={() => handleDownload(MAC_APP_DOWNLOAD_URL)}
@@ -77,6 +87,31 @@ const DownloadPage: React.FC = () => {
                   Version 1.0.0 • Windows 10 or later
                 </p>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-gray-700 text-sm">
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center gap-2 text-secondary">
+                <span>Created by</span>
+                <a
+                  href="https://github.com/Darshan-naik"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors "
+                >
+                  Darshan Naik
+                </a>
+              </div>
+              <a
+                href="https://github.com/Darshan-naik/Dyno"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-secondary hover:text-blue-400 transition-colors"
+              >
+                <FaGithub />
+                <span>View on GitHub</span>
+              </a>
             </div>
           </div>
         </div>
