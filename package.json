@@ -2,7 +2,7 @@
   "name": "Dyno",
   "productName": "Dyno",
   "version": "1.0.0",
-  "description": "Dyno is a simple task management application",
+  "description": "Dyno is a simple productivity management application",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
