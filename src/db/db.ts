@@ -1,6 +1,7 @@
 import Dexie from "dexie";
 import { Note } from "../types/notes.types";
 import { Task } from "../types/task.types";
+import { Board } from "../types/drawingBoard.types";
 
 const db = new Dexie("dyno-db");
 db.version(1).stores({
@@ -8,6 +9,7 @@ db.version(1).stores({
   tasks: "id, createdAt, completed",
   quickNote: "id",
   clipboard: "id",
+  drawing_boards: "id, createdAt",
 });
 
 export const notesDB = db.table<Note>("notes");
@@ -20,6 +22,7 @@ export const clipboardDB = db.table<{
   id: string;
   text: string;
 }>("clipboard");
+export const drawingDB = db.table<Board>("drawing_boards");
 
 export const dropDB = () => {
   db.transaction("rw", db.tables, () => {

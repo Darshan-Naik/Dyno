@@ -14,6 +14,7 @@ import {
   getClipboardText,
 } from "./component/Apps/Clipboard/store/clipboard.action";
 import { fetchNotes } from "./component/Apps/Notes/store/notes.action";
+import { fetchBoards } from "./component/Apps/DrawingBoard/store/board.action";
 
 const App = () => {
   const { user } = useAuth();
@@ -31,6 +32,7 @@ const App = () => {
       fetchQuickNote();
       fetchNotes();
       fetchClipboardData();
+      fetchBoards();
       const interval = setInterval(getClipboardText, 1000);
       return () => {
         clearInterval(interval);
