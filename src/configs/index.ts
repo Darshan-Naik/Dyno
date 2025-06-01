@@ -12,7 +12,7 @@ import Notes from "../component/Apps/Notes";
 import Reminders from "../component/Apps/Reminders";
 import QuickNote from "../component/Apps/QuickNote";
 import Clipboard from "../component/Apps/Clipboard";
-import DrawingBoard from "../component/DrawingBoard";
+import DrawingBoard from "../component/Apps/DrawingBoard";
 
 export const mainMenu = [
   {
