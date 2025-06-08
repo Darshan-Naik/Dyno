@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { FaSquare, FaRegSquare, FaCircle } from "react-icons/fa";
+import { FaSquare, FaRegSquare } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
 import { AiOutlineDash, AiOutlineSmallDash } from "react-icons/ai";
 
@@ -14,20 +14,19 @@ interface StyleToolbarProps {
   onStrokeWidthChange: (width: number) => void;
   onStrokeStyleChange: (style: string) => void;
 }
-
 const PREDEFINED_COLORS = [
-  { color: "#ffffff", opacity: 1 }, // White
-  { color: "#000000", opacity: 1 }, // Black
-  { color: "#ff0000", opacity: 0.8 }, // Red
-  { color: "#00ff00", opacity: 0.8 }, // Green
-  { color: "#0000ff", opacity: 0.8 }, // Blue
-  { color: "#ffff00", opacity: 0.8 }, // Yellow
-  { color: "#ff00ff", opacity: 0.8 }, // Magenta
-  { color: "#00ffff", opacity: 0.8 }, // Cyan
-  { color: "#808080", opacity: 0.8 }, // Gray
-  { color: "#800000", opacity: 0.8 }, // Maroon
-  { color: "#008000", opacity: 0.8 }, // Dark Green
-  { color: "#000080", opacity: 0.8 }, // Navy
+  { color: "#ffffff50" }, // White
+  { color: "#00000050" }, // Black
+  { color: "#ff000050" }, // Red
+  { color: "#00ff0050" }, // Green
+  { color: "#0000ff50" }, // Blue
+  { color: "#ffff0050" }, // Yellow
+  { color: "#ff00ff50" }, // Magenta
+  { color: "#00ffff50" }, // Cyan
+  { color: "#80808050" }, // Gray
+  { color: "#80000050" }, // Maroon
+  { color: "#00800050" }, // Dark Green
+  { color: "#00008050" }, // Navy
 ];
 
 const STROKE_SIZES = [
@@ -64,13 +63,6 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
     return size?.id || "m";
   };
 
-  const getColorWithOpacity = (color: string, opacity: number) => {
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  };
-
   const getCurrentVariant = () => {
     return fillColor === "transparent" ? "outline" : "filled";
   };
@@ -80,20 +72,17 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
       onFillColorChange("transparent");
       onStrokeColorChange(fillColor);
     } else {
-      const rgbaColor = getColorWithOpacity(strokeColor, 0.5);
-      onFillColorChange(rgbaColor);
+      onFillColorChange(strokeColor);
       onStrokeColorChange("transparent");
     }
   };
 
-  const handleColorChange = (color: string, opacity: number) => {
-    const rgbaColor = getColorWithOpacity(color, opacity);
+  const handleColorChange = (color: string) => {
     if (getCurrentVariant() === "filled") {
-      const fillRgbaColor = getColorWithOpacity(color, 0.5);
-      onFillColorChange(fillRgbaColor);
+      onFillColorChange(color);
       onStrokeColorChange("transparent");
     } else {
-      onStrokeColorChange(rgbaColor);
+      onStrokeColorChange(color);
     }
   };
 
@@ -134,18 +123,17 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
         />
         {showColorPicker && (
           <div className="absolute bottom-full left-0 mt-1 p-2 bg-secondary shadow-lg rounded-lg grid grid-cols-4 gap-1 w-32">
-            {PREDEFINED_COLORS.map(({ color, opacity }) => (
+            {PREDEFINED_COLORS.map(({ color }) => (
               <button
                 key={color}
                 className={twMerge(
                   "w-6 h-6 rounded cursor-pointer border border-secondary",
-                  (strokeColor === getColorWithOpacity(color, opacity) ||
-                    fillColor === getColorWithOpacity(color, opacity)) &&
+                  (strokeColor === color || fillColor === color) &&
                     "ring-2 ring-blue-500"
                 )}
-                style={{ backgroundColor: getColorWithOpacity(color, opacity) }}
+                style={{ backgroundColor: color }}
                 onClick={() => {
-                  handleColorChange(color, opacity);
+                  handleColorChange(color);
                   setShowColorPicker(false);
                 }}
                 title={color}
