@@ -3,37 +3,35 @@ import { FabricJSEditor } from "fabricjs-react";
 import { IText, ActiveSelection, FabricObject } from "fabric";
 
 // In-memory storage for copied object
-let copiedObject: FabricObject = null;
+let copiedObject: FabricObject | FabricObject[] = null;
 
 export const useKeyboardShortcuts = (editor: FabricJSEditor) => {
   useEffect(() => {
     if (!editor?.canvas) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
       const canvas = editor.canvas;
-      const activeObject = canvas.getActiveObject();
+      const activeObjects = canvas.getActiveObjects();
 
       // Delete/Backspace
       if (
         (e.key === "Delete" || e.key === "Backspace") &&
-        (!activeObject ||
-          !(activeObject instanceof IText) ||
-          !(activeObject as IText).isEditing)
+        activeObjects.length > 0 &&
+        !activeObjects.some(
+          (obj) => obj instanceof IText && (obj as IText).isEditing
+        )
       ) {
-        const activeObjects = canvas.getActiveObjects();
-        if (activeObjects.length > 0) {
-          activeObjects.forEach((obj) => {
-            canvas.remove(obj);
-          });
-          canvas.discardActiveObject();
-          canvas.requestRenderAll();
-        }
+        activeObjects.forEach((obj) => {
+          canvas.remove(obj);
+        });
+        canvas.discardActiveObject();
+        canvas.requestRenderAll();
       }
 
       // Copy (Ctrl/Cmd + C)
       if ((e.ctrlKey || e.metaKey) && e.key === "c") {
-        if (activeObject) {
-          copiedObject = activeObject;
+        if (activeObjects.length > 0) {
+          copiedObject = activeObjects;
         }
       }
 
@@ -41,15 +39,31 @@ export const useKeyboardShortcuts = (editor: FabricJSEditor) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "v") {
         if (copiedObject) {
           try {
-            copiedObject.clone().then((obj) => {
+            if (Array.isArray(copiedObject)) {
+              // Handle multiple objects
+              const clonedObjects = await Promise.all(
+                copiedObject.map((obj) => obj.clone())
+              );
+              clonedObjects.forEach((obj) => {
+                obj.set({
+                  left: (obj.left || 0) + 20,
+                  top: (obj.top || 0) + 20,
+                });
+                canvas.add(obj);
+              });
+              const selection = new ActiveSelection(clonedObjects, { canvas });
+              canvas.setActiveObject(selection);
+            } else {
+              // Handle single object
+              const obj = await copiedObject.clone();
               obj.set({
                 left: (obj.left || 0) + 20,
                 top: (obj.top || 0) + 20,
               });
               canvas.add(obj);
               canvas.setActiveObject(obj);
-              canvas.requestRenderAll();
-            });
+            }
+            canvas.requestRenderAll();
           } catch (error) {
             console.error("Error pasting object:", error);
           }
@@ -58,9 +72,12 @@ export const useKeyboardShortcuts = (editor: FabricJSEditor) => {
 
       // Cut (Ctrl/Cmd + X)
       if ((e.ctrlKey || e.metaKey) && e.key === "x") {
-        if (activeObject) {
-          copiedObject = activeObject;
-          canvas.remove(activeObject);
+        if (activeObjects.length > 0) {
+          copiedObject = activeObjects;
+          activeObjects.forEach((obj) => {
+            canvas.remove(obj);
+          });
+          canvas.discardActiveObject();
           canvas.requestRenderAll();
         }
       }
@@ -79,34 +96,43 @@ export const useKeyboardShortcuts = (editor: FabricJSEditor) => {
 
       // Arrow key movement
       if (
-        activeObject &&
-        !(activeObject instanceof IText) &&
-        !(activeObject as IText).isEditing
+        activeObjects.length > 0 &&
+        !activeObjects.some(
+          (obj) => obj instanceof IText && (obj as IText).isEditing
+        )
       ) {
         const moveAmount = e.shiftKey ? 10 : 1; // Move faster with shift key
         switch (e.key) {
           case "ArrowLeft":
             e.preventDefault();
-            activeObject.set({
-              left: activeObject.left - moveAmount,
+            activeObjects.forEach((obj) => {
+              obj.set({
+                left: obj.left - moveAmount,
+              });
             });
             break;
           case "ArrowRight":
             e.preventDefault();
-            activeObject.set({
-              left: activeObject.left + moveAmount,
+            activeObjects.forEach((obj) => {
+              obj.set({
+                left: obj.left + moveAmount,
+              });
             });
             break;
           case "ArrowUp":
             e.preventDefault();
-            activeObject.set({
-              top: activeObject.top - moveAmount,
+            activeObjects.forEach((obj) => {
+              obj.set({
+                top: obj.top - moveAmount,
+              });
             });
             break;
           case "ArrowDown":
             e.preventDefault();
-            activeObject.set({
-              top: activeObject.top + moveAmount,
+            activeObjects.forEach((obj) => {
+              obj.set({
+                top: obj.top + moveAmount,
+              });
             });
             break;
         }
