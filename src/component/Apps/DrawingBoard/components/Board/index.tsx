@@ -1,5 +1,6 @@
 import { FaArrowLeft, FaPlus, FaMinus } from "react-icons/fa6";
 import { Toolbar } from "./Toolbar";
+import { StyleToolbar } from "./StyleToolbar";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import { useDrawingTools } from "../../hooks/useDrawingTools";
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
@@ -17,8 +18,19 @@ type BoardProps = {
 const Board = ({ handleBack, boardId }: BoardProps) => {
   const [board, setBoard] = useState(boardStore.getBoard(boardId));
   const { editor, onReady } = useFabricJSEditor();
-  const { currentTool, handleToolChange, handleInsert } =
-    useDrawingTools(editor);
+  const {
+    currentTool,
+    strokeColor,
+    fillColor,
+    strokeWidth,
+    strokeStyle,
+    setStrokeColor,
+    setFillColor,
+    setStrokeWidth,
+    setStrokeStyle,
+    handleToolChange,
+    handleInsert,
+  } = useDrawingTools(editor);
   const containerRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(1);
 
@@ -175,6 +187,16 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
       </div>
       <div className="p-2 h-full" onClick={handleInsert} ref={containerRef}>
         <Toolbar currentTool={currentTool} onToolChange={handleToolChange} />
+        <StyleToolbar
+          strokeColor={strokeColor}
+          fillColor={fillColor}
+          strokeWidth={strokeWidth}
+          strokeStyle={strokeStyle}
+          onStrokeColorChange={setStrokeColor}
+          onFillColorChange={setFillColor}
+          onStrokeWidthChange={setStrokeWidth}
+          onStrokeStyleChange={setStrokeStyle}
+        />
         <FabricJSCanvas
           className="w-full h-full overflow-auto"
           onReady={onReady}
