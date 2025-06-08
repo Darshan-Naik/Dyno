@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FabricJSEditor } from "fabricjs-react";
 import { Circle, IText, Polyline, Rect, PencilBrush, Line } from "fabric";
 import { useCanvasMove } from "./useCanvasMove";
 
 // Constants
-const DRAWING_COLOR = "#ffffffcf";
-const STROKE_WIDTH = 2;
+const DEFAULT_STROKE_COLOR = "rgba(255, 255, 255, 0.8)";
+const DEFAULT_FILL_COLOR = "transparent";
+const DEFAULT_STROKE_WIDTH = 4;
 const DEFAULT_FONT_SIZE = 14;
 
 // Types
@@ -21,22 +22,84 @@ interface DrawingObject {
   width?: number;
   height?: number;
   radius?: number;
+  strokeDashArray?: number[];
 }
 
 export const useDrawingTools = (editor: FabricJSEditor) => {
   const [currentTool, setCurrentTool] = useState<string>("select");
+  const [strokeColor, setStrokeColor] = useState(DEFAULT_STROKE_COLOR);
+  const [fillColor, setFillColor] = useState(DEFAULT_FILL_COLOR);
+  const [strokeWidth, setStrokeWidth] = useState(DEFAULT_STROKE_WIDTH);
+  const [strokeStyle, setStrokeStyle] = useState("solid");
   const { enableMoveMode, disableMoveMode } = useCanvasMove(
     editor,
     currentTool
   );
 
+  const getStrokeDashArray = (style: string) => {
+    switch (style) {
+      case "dashed":
+        return [10, 5];
+      case "dotted":
+        return [2, 2];
+      default:
+        return undefined;
+    }
+  };
+
+  // Update selected object when style changes
+  useEffect(() => {
+    if (!editor?.canvas) return;
+    const activeObject = editor.canvas.getActiveObject();
+    if (activeObject) {
+      activeObject.set({
+        stroke: strokeColor,
+        fill: fillColor,
+        strokeWidth: strokeWidth,
+        strokeDashArray: getStrokeDashArray(strokeStyle),
+      });
+      editor.canvas.requestRenderAll();
+    }
+  }, [editor, strokeColor, fillColor, strokeWidth, strokeStyle]);
+
+  // Update style state when selection changes
+  useEffect(() => {
+    if (!editor?.canvas) return;
+    const handleSelection = () => {
+      const activeObject = editor.canvas.getActiveObject();
+      if (activeObject) {
+        setStrokeColor((activeObject.stroke as string) || DEFAULT_STROKE_COLOR);
+        setFillColor((activeObject.fill as string) || DEFAULT_FILL_COLOR);
+        setStrokeWidth(
+          (activeObject.strokeWidth as number) || DEFAULT_STROKE_WIDTH
+        );
+        setStrokeStyle(
+          activeObject.strokeDashArray
+            ? activeObject.strokeDashArray[0] === 10
+              ? "dashed"
+              : "dotted"
+            : "solid"
+        );
+      }
+    };
+
+    editor.canvas.on("selection:created", handleSelection);
+    editor.canvas.on("selection:updated", handleSelection);
+
+    return () => {
+      editor.canvas.off("selection:created", handleSelection);
+      editor.canvas.off("selection:updated", handleSelection);
+    };
+  }, [editor]);
+
   const createDrawingObject = (options: Partial<DrawingObject>) => ({
-    fill: "transparent",
-    stroke: DRAWING_COLOR,
-    strokeWidth: STROKE_WIDTH,
+    fill: fillColor,
+    stroke: strokeColor,
+    strokeWidth: strokeWidth,
     strokeUniform: true,
     hasControls: true,
     hasBorders: true,
+    strokeDashArray: getStrokeDashArray(strokeStyle),
     ...options,
   });
 
@@ -135,7 +198,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
       left: point.x,
       top: point.y,
       fontSize: DEFAULT_FONT_SIZE,
-      fill: DRAWING_COLOR,
+      fill: strokeColor,
       strokeUniform: true,
       lineHeight: 1.5,
       charSpacing: 100,
@@ -186,8 +249,8 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
   const enableFreeDraw = () => {
     if (!editor?.canvas) return;
     const brush = new PencilBrush(editor.canvas);
-    brush.width = STROKE_WIDTH;
-    brush.color = DRAWING_COLOR;
+    brush.width = strokeWidth;
+    brush.color = strokeColor;
     editor.canvas.freeDrawingBrush = brush;
     editor.canvas.isDrawingMode = true;
     editor.canvas.selection = false;
@@ -248,6 +311,14 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
 
   return {
     currentTool,
+    strokeColor,
+    fillColor,
+    strokeWidth,
+    strokeStyle,
+    setStrokeColor,
+    setFillColor,
+    setStrokeWidth,
+    setStrokeStyle,
     handleToolChange,
     handleInsert,
   };
