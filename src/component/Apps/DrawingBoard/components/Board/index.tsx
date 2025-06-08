@@ -36,6 +36,12 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
 
   useKeyboardShortcuts(editor);
 
+  // Save data to localStorage on changes
+  const saveData = () => {
+    const json = editor.canvas.toJSON();
+    updateBoard(board.id, { data: JSON.stringify(json) });
+  };
+
   // Set up object styling
   useEffect(() => {
     if (!editor?.canvas) return;
@@ -113,11 +119,6 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
         }
       });
     }
-    // Save data to localStorage on changes
-    const saveData = () => {
-      const json = editor.canvas.toJSON();
-      updateBoard(board.id, { data: JSON.stringify(json) });
-    };
 
     // Listen for changes
     editor.canvas.on("object:added", saveData);
@@ -130,6 +131,7 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
       editor.canvas.off("object:modified", saveData);
       editor.canvas.off("object:removed", saveData);
       editor.canvas.off("path:created", saveData);
+      saveData();
     };
   }, [editor, boardId]);
 

@@ -133,7 +133,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
           }}
         />
         {showColorPicker && (
-          <div className="absolute top-full left-0 mt-1 p-2 bg-secondary shadow-lg rounded-lg grid grid-cols-4 gap-1 w-32">
+          <div className="absolute bottom-full left-0 mt-1 p-2 bg-secondary shadow-lg rounded-lg grid grid-cols-4 gap-1 w-32">
             {PREDEFINED_COLORS.map(({ color, opacity }) => (
               <button
                 key={color}
