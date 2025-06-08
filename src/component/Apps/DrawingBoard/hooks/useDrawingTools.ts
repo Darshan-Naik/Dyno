@@ -50,24 +50,28 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
   // Update selected object when style changes
   useEffect(() => {
     if (!editor?.canvas) return;
-    const activeObject = editor.canvas.getActiveObject();
-    if (activeObject) {
-      activeObject.set({
-        stroke: strokeColor,
-        fill: fillColor,
-        strokeWidth: strokeWidth,
-        strokeDashArray: getStrokeDashArray(strokeStyle),
+    const activeObjects = editor.canvas.getActiveObjects();
+    if (activeObjects.length > 0) {
+      activeObjects.forEach((obj) => {
+        obj.set({
+          stroke: strokeColor,
+          fill: fillColor,
+          strokeWidth: strokeWidth,
+          strokeDashArray: getStrokeDashArray(strokeStyle),
+        });
       });
       editor.canvas.requestRenderAll();
+      editor.canvas.fire("object:modified", { target: activeObjects[0] });
     }
   }, [editor, strokeColor, fillColor, strokeWidth, strokeStyle]);
 
-  // Update style state when selection changes
+  // Update style state when selection changes, ignoring multiple active objects
   useEffect(() => {
     if (!editor?.canvas) return;
     const handleSelection = () => {
-      const activeObject = editor.canvas.getActiveObject();
-      if (activeObject) {
+      const activeObjects = editor.canvas.getActiveObjects();
+      if (activeObjects.length === 1) {
+        const activeObject = activeObjects[0];
         setStrokeColor((activeObject.stroke as string) || DEFAULT_STROKE_COLOR);
         setFillColor((activeObject.fill as string) || DEFAULT_FILL_COLOR);
         setStrokeWidth(
