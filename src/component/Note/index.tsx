@@ -15,7 +15,7 @@ import {
 import "./style.css";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { FaArrowLeft, FaRegFloppyDisk, FaX } from "react-icons/fa6";
+import { FaArrowLeft, FaRegFloppyDisk } from "react-icons/fa6";
 
 type NoteProps = {
   value?: string;

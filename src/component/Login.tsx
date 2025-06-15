@@ -1,12 +1,18 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { FaGoogle, FaDownload } from "react-icons/fa6";
+import { FaGoogle, FaDownload, FaUser } from "react-icons/fa6";
+import { IoCloudOfflineOutline } from "react-icons/io5";
 import icon from "../assets/icons/icon.png";
 import { isElectron } from "../utils/environment";
 
 const Login: React.FC = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, logout } = useAuth();
   const isWeb = !isElectron();
+
+  const handleLocalMode = () => {
+    logout(); // This will set isLocalMode to true
+    window.location.href = "/"; // Redirect to main app
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-primary">
@@ -20,10 +26,17 @@ const Login: React.FC = () => {
         </div>
         <button
           onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-none  m-5 hover:scale-105 transition-all duration-300 shadow-md"
+          className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-none hover:scale-105 transition-all duration-300 shadow-md"
         >
           <FaGoogle className="size-4" />
           Sign in with Google
+        </button>
+        <button
+          onClick={handleLocalMode}
+          className="w-full flex items-center justify-center gap-2 bg-secondary border border-gray-900 text-sm rounded-lg px-4 py-1 text-secondary hover:text-primary focus:outline-none hover:scale-105 transition-all duration-300 shadow-md"
+        >
+          <IoCloudOfflineOutline className="size-3" />
+          Use without login
         </button>
         {isWeb && (
           <a

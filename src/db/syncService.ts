@@ -31,6 +31,8 @@ class SyncService {
 
   // Sync from cloud to local on app open
   async syncFromCloud() {
+    if (!this._userId) return; // Skip sync if no user ID (local mode)
+
     await this.syncNotesFromCloud();
     await this.syncTasksFromCloud();
     await this.syncQuickNoteFromCloud();
@@ -40,6 +42,7 @@ class SyncService {
 
   // Sync Notes from cloud to local
   private async syncNotesFromCloud() {
+    if (!this._userId) return;
     const notesCollection = collection(
       firestore,
       `users/${this._userId}/notes`
@@ -52,6 +55,7 @@ class SyncService {
 
   // Sync Tasks from cloud to local
   private async syncTasksFromCloud() {
+    if (!this._userId) return;
     const tasksCollection = collection(
       firestore,
       `users/${this._userId}/tasks`
@@ -64,6 +68,7 @@ class SyncService {
 
   // Sync Quick Note from cloud to local
   private async syncQuickNoteFromCloud() {
+    if (!this._userId) return;
     const quickNoteCollection = collection(
       firestore,
       `users/${this._userId}/quickNote`
@@ -78,6 +83,7 @@ class SyncService {
 
   // Sync Clipboard from cloud to local
   private async syncClipboardFromCloud() {
+    if (!this._userId) return;
     const clipboardCollection = collection(
       firestore,
       `users/${this._userId}/clipboard`
@@ -90,6 +96,7 @@ class SyncService {
 
   // Sync Drawing Boards from cloud to local
   private async syncDrawingBoardsFromCloud() {
+    if (!this._userId) return;
     const boardsCollection = collection(
       firestore,
       `users/${this._userId}/drawing_boards`

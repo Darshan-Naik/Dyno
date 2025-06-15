@@ -13,6 +13,7 @@ interface AuthContextType {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
+  isLocalMode: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -33,10 +34,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localData ? JSON.parse(localData) : null
   );
   const [loading, setLoading] = useState(!localData);
+  const [isLocalMode, setIsLocalMode] = useState(!localData);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      localStorage.setItem("user", JSON.stringify(user));
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        setIsLocalMode(false);
+      } else {
+        setIsLocalMode(true);
+      }
       setUser(user);
       setLoading(false);
     });
@@ -56,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = async () => {
     try {
       await signOut(auth);
+      setIsLocalMode(true);
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -66,6 +74,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     loading,
     signInWithGoogle,
     logout,
+    isLocalMode,
   };
 
   return (

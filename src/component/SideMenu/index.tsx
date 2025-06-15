@@ -3,7 +3,7 @@ import SideBarItem from "./SideBarItem";
 import { isElectron } from "../../utils/environment";
 import icon from "../../assets/icons/icon.png";
 import { useAuth } from "../../contexts/AuthContext";
-import { FaRightFromBracket, FaDownload } from "react-icons/fa6";
+import { FaRightFromBracket, FaDownload, FaCloud } from "react-icons/fa6";
 import { dropDB } from "../../db/db";
 
 type SideMenuProps = {
@@ -13,7 +13,7 @@ type SideMenuProps = {
 
 const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
   const isWeb = !isElectron();
-  const { user, logout } = useAuth();
+  const { user, logout, isLocalMode } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -54,26 +54,38 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
             <span className="text-xs truncate">Download App</span>
           </button>
         )}
-        <div className="flex items-center gap-2 px-2 mb-2">
-          <img
-            src={user?.photoURL || icon}
-            alt="Profile"
-            className="w-7 h-7 rounded-full"
-          />
-          <div className="flex-1 min-w-0">
-            <p className="text-xs text-primary truncate">
-              {user?.displayName || "User"}
-            </p>
-            <p className="text-xs text-secondary truncate">{user?.email}</p>
+        {user && (
+          <div className="flex items-center gap-2 px-2 mb-2">
+            <img
+              src={user?.photoURL || icon}
+              alt="Profile"
+              className="w-7 h-7 rounded-full"
+            />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-primary truncate">
+                {user.displayName}
+              </p>
+              <p className="text-xs text-secondary truncate">{user.email}</p>
+            </div>
           </div>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
-        >
-          <FaRightFromBracket className="size-3.5" />
-          <span>Logout</span>
-        </button>
+        )}
+        {isLocalMode ? (
+          <button
+            onClick={() => (window.location.href = "/login")}
+            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
+          >
+            <FaCloud className="size-3.5" />
+            <span>Sign in to Sync</span>
+          </button>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
+          >
+            <FaRightFromBracket className="size-3.5" />
+            <span>Logout</span>
+          </button>
+        )}
       </div>
     </div>
   );

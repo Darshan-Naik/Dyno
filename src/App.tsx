@@ -15,6 +15,7 @@ import {
 } from "./component/Apps/Clipboard/store/clipboard.action";
 import { fetchNotes } from "./component/Apps/Notes/store/notes.action";
 import { fetchBoards } from "./component/Apps/DrawingBoard/store/board.action";
+import { isElectron } from "./utils/environment";
 
 const App = () => {
   const { user } = useAuth();
@@ -27,18 +28,20 @@ const App = () => {
   useSync(user?.uid);
 
   useLayoutEffect(() => {
-    if (user) {
-      fetchTasks();
-      fetchQuickNote();
-      fetchNotes();
-      fetchClipboardData();
-      fetchBoards();
+    fetchTasks();
+    fetchQuickNote();
+    fetchNotes();
+    fetchClipboardData();
+    fetchBoards();
+
+    // Only start clipboard monitoring if in electron
+    if (isElectron()) {
       const interval = setInterval(getClipboardText, 1000);
       return () => {
         clearInterval(interval);
       };
     }
-  }, [user]);
+  }, []);
 
   const handleMenuClick = (menu: string) => {
     setActiveMenu(menu);
@@ -47,12 +50,14 @@ const App = () => {
 
   // Check if we're on the download page
   const isDownloadPage = window.location.pathname === "/download";
+  const isLoginPage = window.location.pathname === "/login";
 
   if (isDownloadPage) {
     return <DownloadPage />;
   }
 
-  if (!user) {
+  // Show login page only if not in local mode
+  if (isLoginPage && !user) {
     return <Login />;
   }
 
