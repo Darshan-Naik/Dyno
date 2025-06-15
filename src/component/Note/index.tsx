@@ -15,7 +15,7 @@ import {
 import "./style.css";
 import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { FaRegFloppyDisk, FaX } from "react-icons/fa6";
+import { FaArrowLeft, FaRegFloppyDisk, FaX } from "react-icons/fa6";
 
 type NoteProps = {
   value?: string;
@@ -63,11 +63,6 @@ const Note = ({
             toolbarClassName: "my-classname",
             toolbarContents: () => (
               <div className="flex justify-between items-center w-full">
-                <UndoRedo />
-                <div className="flex gap-2">
-                  <BoldItalicUnderlineToggles />
-                  <ListsToggle />
-                </div>
                 <div className="p-1 grid place-items-center">
                   {onSave && (
                     <button
@@ -81,10 +76,16 @@ const Note = ({
                   )}
                   {onClose && (
                     <button title="Close" onClick={onClose}>
-                      <FaX className="!text-secondary hover:!text-primary" />
+                      <FaArrowLeft className="!text-secondary hover:!text-primary" />
                     </button>
                   )}
                 </div>
+                <div className="flex gap-2">
+                  <BoldItalicUnderlineToggles />
+                  <ListsToggle />
+                </div>
+
+                <UndoRedo />
               </div>
             ),
           }),
