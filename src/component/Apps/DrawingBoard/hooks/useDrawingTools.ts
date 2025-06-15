@@ -136,8 +136,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
     );
     editor.canvas.add(rect);
     editor.canvas.setActiveObject(rect);
-    setCurrentTool("select");
-    disableFreeDraw();
+    handleToolChange("select");
   };
 
   const addCircle = (e: React.MouseEvent) => {
@@ -152,7 +151,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
     );
     editor.canvas.add(circle);
     editor.canvas.setActiveObject(circle);
-    setCurrentTool("select");
+    handleToolChange("select");
   };
 
   const addArrow = (e: React.MouseEvent) => {
@@ -192,7 +191,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
 
     editor.canvas.add(arrow);
     editor.canvas.setActiveObject(arrow);
-    setCurrentTool("select");
+    handleToolChange("select");
   };
 
   const addText = (e: React.MouseEvent) => {
@@ -215,7 +214,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
     editor.canvas.setActiveObject(text);
     text.enterEditing();
     text.selectAll();
-    setCurrentTool("select");
+    handleToolChange("select");
   };
 
   const addLine = (e: React.MouseEvent) => {
@@ -247,7 +246,7 @@ export const useDrawingTools = (editor: FabricJSEditor) => {
 
     editor.canvas.add(line);
     editor.canvas.setActiveObject(line);
-    setCurrentTool("select");
+    handleToolChange("select");
   };
 
   const enableFreeDraw = () => {
