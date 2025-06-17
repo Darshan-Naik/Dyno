@@ -22,7 +22,7 @@ const Notes = () => {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 overflow-hidden">
       {activeNoteId ? (
         <Note
           value={activeNote.value}

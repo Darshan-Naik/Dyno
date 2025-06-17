@@ -40,15 +40,18 @@ const Note = ({
 
   return (
     <div
-      className={twMerge("flex-1 p-2 flex flex-col overflow-auto", className)}
+      className={twMerge(
+        "flex-1 p-2 flex flex-col overflow-auto w-full h-full",
+        className
+      )}
       onClick={() => ref.current?.focus()}
     >
       <MDXEditor
         ref={ref}
         placeholder="Time to add some magic ✨"
         markdown={value}
-        className="dark-theme dark-editor"
-        contentEditableClassName="prose dark:prose-invert prose-headings:mt-0 prose-headings:mb-0 prose-p:mt-0 prose-p:mb-0"
+        className="dark-theme dark-editor w-full"
+        contentEditableClassName="prose !max-w-full dark:prose-invert prose-headings:mt-0 prose-headings:mb-0 prose-p:mt-0 prose-p:mb-0"
         plugins={[
           headingsPlugin(),
           listsPlugin(),
