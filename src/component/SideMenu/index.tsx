@@ -20,6 +20,15 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
     dropDB();
   };
 
+  const handleLoginRedirect = () => {
+    const consent = window.confirm(
+      "Switching to cloud sync will erase local data. Proceed?"
+    );
+    if (consent) {
+      window.location.href = "/login";
+    }
+  };
+
   const handleDownload = () => {
     window.location.href = "/download";
   };
@@ -71,7 +80,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
         )}
         {isLocalMode ? (
           <button
-            onClick={() => (window.location.href = "/login")}
+            onClick={handleLoginRedirect}
             className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
           >
             <FaCloud className="size-3.5" />
