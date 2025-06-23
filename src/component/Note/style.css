@@ -2381,3 +2381,56 @@ form._multiFieldForm_sects_1209 ._formField_sects_1215 label {
 ._mdxExpression_1tncs_188 input:focus-visible {
   outline: none;
 }
+
+/* --- Custom overrides for dark mode link dialog and blue links --- */
+
+/* Make all links in the editor blue */
+.mdxeditor a {
+  color: var(--blue-9, #0090ff);
+  text-decoration: underline;
+}
+.mdxeditor a:hover {
+  color: var(--blue-11, #0d74ce);
+}
+
+/* Force link dialog to use dark background and light text in dark mode */
+.dark .mdxeditor ._linkDialogPopoverContent_sects_601,
+.dark-theme .mdxeditor ._linkDialogPopoverContent_sects_601 {
+  background: var(--baseBg, #212225);
+  color: var(--baseText, #edeef0);
+}
+.dark .mdxeditor ._linkDialogInput_sects_549,
+.dark-theme .mdxeditor ._linkDialogInput_sects_549 {
+  background: var(--baseBase, #18191b);
+  color: var(--baseText, #edeef0);
+}
+.dark .mdxeditor ._linkDialogPreviewAnchor_sects_654,
+.dark-theme .mdxeditor ._linkDialogPreviewAnchor_sects_654 {
+  color: var(--blue-9, #0090ff);
+}
+.dark .mdxeditor ._linkDialogPreviewAnchor_sects_654:hover,
+.dark-theme .mdxeditor ._linkDialogPreviewAnchor_sects_654:hover {
+  color: var(--blue-11, #70b8ff);
+}
+
+/* --- Improved dark mode override for link dialog (portal support) --- */
+.dark .mdxeditor-popup-container ._linkDialogPopoverContent_sects_601,
+.dark-theme .mdxeditor-popup-container ._linkDialogPopoverContent_sects_601 {
+  background: var(--baseBg, #212225) !important;
+  color: var(--baseText, #edeef0) !important;
+}
+.dark .mdxeditor-popup-container ._linkDialogInput_sects_549,
+.dark-theme .mdxeditor-popup-container ._linkDialogInput_sects_549 {
+  background: var(--baseBase, #18191b) !important;
+  color: var(--baseText, #edeef0) !important;
+}
+.dark .mdxeditor-popup-container ._linkDialogPreviewAnchor_sects_654,
+.dark-theme .mdxeditor-popup-container ._linkDialogPreviewAnchor_sects_654 {
+  color: var(--blue-9, #0090ff) !important;
+}
+.dark .mdxeditor-popup-container ._linkDialogPreviewAnchor_sects_654:hover,
+.dark-theme
+  .mdxeditor-popup-container
+  ._linkDialogPreviewAnchor_sects_654:hover {
+  color: var(--blue-11, #70b8ff) !important;
+}

@@ -44,7 +44,18 @@ const Note = ({
         "flex-1 p-2 flex flex-col overflow-auto w-full h-full",
         className
       )}
-      onClick={() => ref.current?.focus()}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) ref.current?.focus();
+        const anchor = (e.target as HTMLElement).closest("a");
+        if (anchor && (e.ctrlKey || e.metaKey)) {
+          window.open(
+            anchor.getAttribute("href") || "",
+            "_blank",
+            "noopener,noreferrer"
+          );
+          e.preventDefault();
+        }
+      }}
     >
       <MDXEditor
         ref={ref}
@@ -55,7 +66,7 @@ const Note = ({
         plugins={[
           headingsPlugin(),
           listsPlugin(),
-          linkPlugin(),
+          linkPlugin({ disableAutoLink: false }),
           quotePlugin(),
           markdownShortcutPlugin(),
           tablePlugin(),
