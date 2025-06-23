@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { MakerSquirrel } = require("@electron-forge/maker-squirrel");
+const { MakerDMG } = require("@electron-forge/maker-dmg");
 const { MakerZIP } = require("@electron-forge/maker-zip");
 const { MakerDeb } = require("@electron-forge/maker-deb");
 const { MakerRpm } = require("@electron-forge/maker-rpm");
@@ -14,6 +15,7 @@ const config = {
   },
   rebuildConfig: {},
   makers: [
+    new MakerDMG({}),
     new MakerSquirrel({}),
     new MakerZIP({}, ["darwin"]),
     new MakerRpm({}),
