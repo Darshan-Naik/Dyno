@@ -20,7 +20,7 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
         viewTransitionName: `note-animate-${note.id}`,
         contain: "layout",
       }}
-      className="bg-secondary py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex gap-2 items-center cursor-pointer hover:border border-gray-700 transition-colors duration-300 box-border hover:shadow-xl"
+      className="bg-secondary py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex gap-2 items-center cursor-pointer border border-transparent hover:border-gray-700 transition-colors duration-300 box-border hover:shadow-xl"
     >
       <div className="flex-1">
         <p

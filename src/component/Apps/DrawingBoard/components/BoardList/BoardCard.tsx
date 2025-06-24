@@ -17,7 +17,7 @@ const BoardCard = ({ onClick, handleDeleteClick, board }: BoardCardProps) => {
         viewTransitionName: `board-animate-${board.id}`,
         contain: "layout",
       }}
-      className="bg-secondary py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex flex-col gap-2 cursor-pointer hover:border border-gray-700 transition-colors duration-300 box-border hover:shadow-xl"
+      className="bg-secondary py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex flex-col gap-2 cursor-pointer border border-transparent hover:border-gray-700 transition-colors duration-300 box-border hover:shadow-xl"
     >
       <div className="flex justify-between items-center">
         <div className="flex-1">

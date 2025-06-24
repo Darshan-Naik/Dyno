@@ -66,7 +66,7 @@ const Task = ({ task }: TaskProps) => {
         />
       </div>
       <div className="flex flex-col gap-2 h-full justify-between items-end">
-        <div className="flex gap-3 text-sm">
+        <div className="flex gap-3 text-sm p-1">
           {!task.completed && (
             <button
               title="Mark as complete"
