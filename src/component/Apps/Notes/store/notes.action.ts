@@ -32,15 +32,16 @@ export const updateNote = async (value: string, id: string) => {
   }
 };
 
-export const createNote = async (value = "") => {
+export const createNote = (value = "") => {
   const note = {
     id: nanoid(),
     value: value,
     createdAt: getCurrentTime(),
   };
   notesStore.createNote(note);
-  await addNoteInDB(note);
-  await addNoteInCloud(note);
+  addNoteInDB(note);
+  addNoteInCloud(note);
+  return note;
 };
 
 export const removeNote = async (id: string) => {

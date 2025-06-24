@@ -3,7 +3,7 @@ import { notesStore } from "./store/notes.store";
 import NoteCard from "./Components/NoteCard";
 import { useMemo, useState } from "react";
 import Note from "../../../component/Note";
-import { updateNote } from "./store/notes.action";
+import { createNote, updateNote } from "./store/notes.action";
 import NoNotes from "./Components/NoNotes";
 import useViewTransition from "../../../hooks/useViewTransition";
 import AddNote from "./Components/AddNote";
@@ -21,6 +21,11 @@ const Notes = () => {
     updateNote(value, activeNote.id);
   };
 
+  const handleAddNewNote = () => {
+    const note = createNote();
+    setActiveNoteId(note.id);
+  };
+
   return (
     <div className="flex-1 overflow-hidden">
       {activeNoteId ? (
@@ -32,7 +37,7 @@ const Notes = () => {
       ) : (
         <div className="h-full overflow-hidden flex flex-col">
           <div className="flex w-full justify-end py-2 px-4">
-            <AddNote />
+            <AddNote onClick={() => useViewTransition(handleAddNewNote)} />
           </div>
           {notesStore.notes.length ? (
             <div className="flex-1 overflow-hidden">
@@ -50,7 +55,7 @@ const Notes = () => {
             </div>
           ) : (
             <div className="flex justify-center items-center flex-col gap-4 h-full">
-              <NoNotes />
+              <NoNotes onAddNote={() => useViewTransition(handleAddNewNote)} />
             </div>
           )}
         </div>
