@@ -154,7 +154,7 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
 
   return (
     <div className="flex-1 relative overflow-hidden">
-      <div className="absolute top-4 left-4 z-10 flex items-center gap-2  backdrop-blur-sm w-fit rounded-md">
+      <div className="absolute top-4 left-4 z-10 flex items-center gap-2  backdrop-blur-xs w-fit rounded-md">
         <button
           onClick={handleBack}
           className="text-secondary hover:text-primary transition-colors"
@@ -168,7 +168,7 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
           className="bg-transparent px-2 py-1 text-sm w-fit min-w-28"
         />
       </div>
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-2  backdrop-blur-sm rounded-md py-1 px-2">
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-2  backdrop-blur-xs rounded-md py-1 px-2">
         <button
           onClick={() => handleZoom(-0.1)}
           className="text-secondary hover:text-primary transition-colors"

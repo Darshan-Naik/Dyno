@@ -26,7 +26,7 @@ const Task = ({ task }: TaskProps) => {
 
   return (
     <div
-      className="bg-secondary px-2 py-1 text-primary rounded flex gap-4"
+      className="bg-secondary px-2 py-1 text-primary rounded-sm flex gap-4"
       style={{
         viewTransitionName: `task-animate-${task.id}`,
         contain: "layout",
@@ -45,7 +45,7 @@ const Task = ({ task }: TaskProps) => {
           placeholder="Title"
           autoFocus={!task.title}
           className={twMerge(
-            "text-sm focus:outline-none bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic",
+            "text-sm focus:outline-hidden bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic",
             task.completed && "line-through"
           )}
           id="title"
@@ -57,7 +57,7 @@ const Task = ({ task }: TaskProps) => {
           rows={1}
           placeholder="Description"
           className={twMerge(
-            "text-secondary text-xs focus:outline-none bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic"
+            "text-secondary text-xs focus:outline-hidden bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic"
           )}
           readOnly={task.completed}
           id="description"

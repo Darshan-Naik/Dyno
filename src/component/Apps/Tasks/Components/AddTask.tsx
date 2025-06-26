@@ -12,7 +12,7 @@ const AddTask = ({ className, showLabel = true }: AddTaskProps) => {
   return (
     <button
       className={twMerge(
-        "text-secondary hover:text-primary text-xs flex gap-2 items-center bg-primary rounded py-1 px-2",
+        "text-secondary hover:text-primary text-xs flex gap-2 items-center bg-primary rounded-sm py-1 px-2",
         className
       )}
       onClick={() => useViewTransition(addNewTask)}

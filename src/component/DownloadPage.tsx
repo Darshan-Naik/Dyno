@@ -21,7 +21,7 @@ const DownloadPage: React.FC = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto text-center">
           <img src={icon} alt="Dyno Logo" className="w-24 h-24 mx-auto mb-4" />
-          <h1 className="text-4xl italic font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+          <h1 className="text-4xl italic font-bold mb-6 bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-purple-500">
             Download Dyno
           </h1>
           <p className=" text-secondary mb-8">
@@ -67,7 +67,7 @@ const DownloadPage: React.FC = () => {
               <div className="flex flex-col items-center">
                 <Button
                   onClick={() => handleDownload(MAC_APP_DOWNLOAD_URL)}
-                  className="px-4 py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
+                  className="px-4 py-2 text-lg font-semibold bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
                 >
                   Download for macOS
                 </Button>
@@ -79,7 +79,7 @@ const DownloadPage: React.FC = () => {
               <div className="flex flex-col items-center">
                 <Button
                   onClick={() => handleDownload(WINDOWS_APP_DOWNLOAD_URL)}
-                  className="px-4 py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
+                  className="px-4 py-2 text-lg font-semibold bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-full transition-all duration-200 transform hover:scale-105"
                 >
                   Download for Windows
                 </Button>

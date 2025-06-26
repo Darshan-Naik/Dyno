@@ -111,7 +111,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
       <div className="flex items-center gap-2 border-r border-secondary pr-2 relative">
         <button
           className={twMerge(
-            "size-5 rounded cursor-pointer border border-secondary",
+            "size-5 rounded-sm cursor-pointer border border-secondary",
             "hover:ring-2 hover:ring-blue-500 transition-all"
           )}
           onClick={() => setShowColorPicker(!showColorPicker)}
@@ -127,7 +127,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
               <button
                 key={color}
                 className={twMerge(
-                  "w-6 h-6 rounded cursor-pointer border border-secondary",
+                  "w-6 h-6 rounded-sm cursor-pointer border border-secondary",
                   (strokeColor === color || fillColor === color) &&
                     "ring-2 ring-blue-500"
                 )}

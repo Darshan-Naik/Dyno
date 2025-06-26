@@ -26,14 +26,14 @@ const Login: React.FC = () => {
         </div>
         <button
           onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-none hover:scale-105 transition-all duration-300 shadow-md"
+          className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
         >
           <FaGoogle className="size-4" />
           Sign in with Google
         </button>
         <button
           onClick={handleLocalMode}
-          className="w-full flex items-center justify-center gap-2 bg-secondary border border-gray-900 text-sm rounded-lg px-4 py-1 text-secondary hover:text-primary focus:outline-none hover:scale-105 transition-all duration-300 shadow-md"
+          className="w-full flex items-center justify-center gap-2 bg-secondary border border-gray-900 text-sm rounded-lg px-4 py-1 text-secondary hover:text-primary focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
         >
           <IoCloudOfflineOutline className="size-3" />
           Use without login

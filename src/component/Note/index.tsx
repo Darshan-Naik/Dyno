@@ -62,7 +62,7 @@ const Note = ({
         placeholder="Time to add some magic ✨"
         markdown={value}
         className="dark-theme dark-editor w-full"
-        contentEditableClassName="prose !max-w-full dark:prose-invert prose-headings:mt-0 prose-headings:mb-0 prose-p:mt-0 prose-p:mb-0"
+        contentEditableClassName="prose max-w-full! dark:prose-invert prose-headings:mt-0 prose-headings:mb-0 prose-p:mt-0 prose-p:mb-0"
         plugins={[
           headingsPlugin(),
           listsPlugin(),
@@ -85,12 +85,12 @@ const Note = ({
                       disabled={!value}
                       onClick={onSave}
                     >
-                      <FaRegFloppyDisk className="!text-secondary hover:!text-primary" />
+                      <FaRegFloppyDisk className="text-secondary! hover:text-primary!" />
                     </button>
                   )}
                   {onClose && (
                     <button title="Close" onClick={onClose}>
-                      <FaArrowLeft className="!text-secondary hover:!text-primary" />
+                      <FaArrowLeft className="text-secondary! hover:text-primary!" />
                     </button>
                   )}
                 </div>

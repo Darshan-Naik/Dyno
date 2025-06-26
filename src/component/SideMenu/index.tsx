@@ -57,7 +57,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
         {isWeb && (
           <button
             onClick={handleDownload}
-            className="w-full px-3 py-1 flex items-center justify-center gap-2 bg-gradient-to-r to-blue-500 from-purple-600 hover:to-blue-600 hover:from-purple-700 rounded-full transition-all duration-200  my-2"
+            className="w-full px-3 py-1 flex items-center justify-center gap-2 bg-linear-to-r to-blue-500 from-purple-600 hover:to-blue-600 hover:from-purple-700 rounded-full transition-all duration-200  my-2"
           >
             <FaDownload className="size-3" />
             <span className="text-xs truncate">Download App</span>
