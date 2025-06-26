@@ -11,7 +11,7 @@ const AddNote = ({ className, showLabel = true, onClick }: AddNoteProps) => {
   return (
     <button
       className={twMerge(
-        "cursor-pointer text-muted-foreground hover:text-foreground text-xs flex gap-2 items-center bg-background rounded-sm py-1 px-2",
+        "cursor-pointer text-muted-foreground hover:text-foreground text-sm flex gap-2 items-center bg-background rounded-sm py-1 px-2",
         className
       )}
       onClick={onClick}
