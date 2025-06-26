@@ -20,7 +20,7 @@ const Clipboard = () => {
   return (
     <div className="flex-1 overflow-hidden">
       {!isElectron() && (
-        <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 px-4 py-3 mb-4 rounded-md text-center">
+        <div className="bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 px-4 py-2 mb-4 rounded-md text-center mx-2 mt-2">
           <p className="text-sm">
             ⚠️ Auto-tracing of clipboard content is not available in the web
             version. For the full clipboard experience with automatic content
@@ -28,10 +28,10 @@ const Clipboard = () => {
           </p>
         </div>
       )}
-      <div className="max-h-full bg-primary p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start overflow-x-hidden">
+      <div className="max-h-full bg-background p-4 flex gap-2 overflow-y-auto flex-wrap items-start justify-start overflow-x-hidden">
         {clipboardStore.texts.map((clip, index) => (
           <div
-            className="py-1 px-2 border rounded-md border-gray-700 text-secondary text-sm w-fit flex gap-5 hover:text-primary bg-secondary items-start overflow-hidden"
+            className="py-1 px-2 border rounded-md border-border text-muted-foreground text-sm w-fit flex gap-5 hover:text-foreground bg-card items-start overflow-hidden transition-colors"
             key={clip.id}
           >
             <p className="whitespace-pre-wrap break-words font-light italic break-all">

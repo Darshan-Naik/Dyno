@@ -20,7 +20,7 @@ export const BoardList = ({ boards, onBoardSelect }: BoardListProps) => {
   };
 
   return (
-    <div className="h-full overflow-hidden flex flex-col w-full">
+    <div className="h-full overflow-hidden flex flex-col flex-1">
       <div className="flex w-full justify-end py-2 px-4">
         <AddBoard onClick={handleCreateNew} />
       </div>

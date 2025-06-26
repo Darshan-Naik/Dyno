@@ -26,7 +26,7 @@ const Task = ({ task }: TaskProps) => {
 
   return (
     <div
-      className="bg-secondary px-2 py-1 text-primary rounded-sm flex gap-4"
+      className="bg-card px-2 py-1 text-foreground rounded-sm flex gap-4"
       style={{
         viewTransitionName: `task-animate-${task.id}`,
         contain: "layout",
@@ -57,7 +57,7 @@ const Task = ({ task }: TaskProps) => {
           rows={1}
           placeholder="Description"
           className={twMerge(
-            "text-secondary text-xs focus:outline-hidden bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic"
+            "text-muted-foreground text-xs focus:outline-hidden bg-transparent w-full resize-none overflow-hidden placeholder:opacity-25 placeholder:italic"
           )}
           readOnly={task.completed}
           id="description"
@@ -86,7 +86,7 @@ const Task = ({ task }: TaskProps) => {
         </div>
         {task.createdAt && (
           <p
-            className="text-xs text-secondary font-extralight italic opacity-50"
+            className="text-xs text-secondary-foreground font-extralight italic opacity-50"
             title={`Added ${getRelativeTime(task.createdAt)}`}
           >
             {getRelativeTime(task.createdAt)}

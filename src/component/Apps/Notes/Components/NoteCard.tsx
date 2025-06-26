@@ -20,19 +20,19 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
         viewTransitionName: `note-animate-${note.id}`,
         contain: "layout",
       }}
-      className="bg-secondary py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex gap-2 items-center cursor-pointer border border-transparent hover:border-gray-700 transition-colors duration-300 box-border hover:shadow-xl"
+      className="bg-card py-3 px-4 rounded-lg shadow-md mb-4 w-64 flex gap-2 items-center cursor-pointer border border-transparent hover:border-border transition-colors duration-300 box-border hover:shadow-xl"
     >
       <div className="flex-1">
         <p
           className={twMerge(
             "truncate max-w-48 text-sm",
-            !text && "opacity-50 italic text-secondary"
+            !text && "opacity-50 italic text-secondary-foreground"
           )}
         >
           {text || "Time to add some magic ✨"}
         </p>
         <p
-          className="text-xs text-secondary font-extralight italic opacity-50 mt-2"
+          className="text-xs text-secondary-foreground font-extralight italic opacity-50 mt-2"
           title={`Added ${getRelativeTime(note.createdAt)}`}
         >
           {getRelativeTime(note.createdAt)}

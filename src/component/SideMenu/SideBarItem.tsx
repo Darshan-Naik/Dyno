@@ -11,8 +11,8 @@ const SideBarItem = ({ label, Icon, active, onClick }: SideBarItemProps) => {
     <button
       onClick={onClick}
       className={twMerge(
-        "w-full text-secondary font-light text-xs text-left py-1 px-2 rounded-md  hover:text-primary transition-colors duration-300 flex justify-between items-center cursor-pointer",
-        active && "text-primary bg-primary"
+        "w-full text-foreground/70 font-light text-xs text-left py-1 px-2 rounded-md  hover:bg-accent hover:text-accent-foreground transition-colors duration-300 flex justify-between items-center cursor-pointer",
+        active && "text-foreground bg-accent"
       )}
     >
       <span className="flex items-center gap-2">

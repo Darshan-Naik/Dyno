@@ -12,7 +12,7 @@ const AddBoard = ({ className, showLabel = true, onClick }: AddBoardProps) => {
   return (
     <button
       className={twMerge(
-        "text-secondary hover:text-primary text-xs flex gap-2 items-center bg-primary rounded-sm py-1 px-2",
+        "text-muted-foreground transition-colors cursor-pointer hover:text-foreground text-xs flex gap-2 items-center bg-background rounded-sm py-1 px-2",
         className
       )}
       onClick={() => useViewTransition(onClick)}

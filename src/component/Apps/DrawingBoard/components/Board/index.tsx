@@ -157,7 +157,7 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
       <div className="absolute top-4 left-4 z-10 flex items-center gap-2  backdrop-blur-xs w-fit rounded-md">
         <button
           onClick={handleBack}
-          className="text-secondary hover:text-primary transition-colors"
+          className="text-secondary-foreground hover:text-foreground transition-colors"
         >
           <FaArrowLeft />
         </button>
@@ -171,17 +171,17 @@ const Board = ({ handleBack, boardId }: BoardProps) => {
       <div className="absolute top-4 right-4 z-10 flex items-center gap-2  backdrop-blur-xs rounded-md py-1 px-2">
         <button
           onClick={() => handleZoom(-0.1)}
-          className="text-secondary hover:text-primary transition-colors"
+          className="text-secondary-foreground hover:text-foreground transition-colors"
           title="Zoom Out"
         >
           <FaMinus className="size-4" />
         </button>
-        <span className="text-sm text-secondary px-2">
+        <span className="text-sm text-secondary-foreground px-2">
           {Math.round(zoom * 100)}%
         </span>
         <button
           onClick={() => handleZoom(0.1)}
-          className="text-secondary hover:text-primary transition-colors"
+          className="text-secondary-foreground hover:text-foreground transition-colors"
           title="Zoom In"
         >
           <FaPlus className="size-4" />

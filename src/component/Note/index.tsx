@@ -74,9 +74,8 @@ const Note = ({
             viewMode: "rich-text",
           }),
           toolbarPlugin({
-            toolbarClassName: "my-classname",
             toolbarContents: () => (
-              <div className="flex justify-between items-center w-full">
+              <div className="flex justify-between items-center w-full bg-card">
                 <div className="p-1 grid place-items-center">
                   {onSave && (
                     <button
@@ -85,12 +84,12 @@ const Note = ({
                       disabled={!value}
                       onClick={onSave}
                     >
-                      <FaRegFloppyDisk className="text-secondary! hover:text-primary!" />
+                      <FaRegFloppyDisk className="text-muted-foreground! hover:text-foreground! transition-colors cursor-pointer" />
                     </button>
                   )}
                   {onClose && (
                     <button title="Close" onClick={onClose}>
-                      <FaArrowLeft className="text-secondary! hover:text-primary!" />
+                      <FaArrowLeft className="text-muted-foreground! hover:text-foreground! transition-colors cursor-pointer" />
                     </button>
                   )}
                 </div>

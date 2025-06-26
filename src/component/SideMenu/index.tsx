@@ -34,14 +34,14 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
   };
 
   return (
-    <div className="max-w-60 bg-secondary h-full px-2 w-1/6 sidebar flex flex-col min-w-28">
+    <div className="max-w-60 bg-sidebar h-full px-2 w-1/6 sidebar flex flex-col min-w-28">
       {isWeb ? (
-        <div className="header font-thin h-10 text-primary w-full flex items-center gap-2 px-2">
+        <div className="header font-thin h-10 text-foreground w-full flex items-center gap-2 px-2">
           <img src={icon} alt="Dyno Logo" className="w-6 h-6" />
           <span className="font-medium italic">Dyno</span>
         </div>
       ) : (
-        <div className="header font-thin h-10 text-primary w-full" />
+        <div className="header font-thin h-10 text-foreground w-full" />
       )}
       <div className="flex-1 flex flex-col gap-1">
         {mainMenu.map((menu) => (
@@ -53,7 +53,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
           />
         ))}
       </div>
-      <div className="border-t border-gray-700 py-2 mt-auto">
+      <div className="border-t border-border py-2 mt-auto">
         {isWeb && (
           <button
             onClick={handleDownload}
@@ -71,17 +71,19 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
               className="w-7 h-7 rounded-full"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-primary truncate">
+              <p className="text-xs text-foreground truncate">
                 {user.displayName}
               </p>
-              <p className="text-xs text-secondary truncate">{user.email}</p>
+              <p className="text-xs text-muted-foreground truncate">
+                {user.email}
+              </p>
             </div>
           </div>
         )}
         {isLocalMode ? (
           <button
             onClick={handleLoginRedirect}
-            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
+            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-md transition-colors duration-200"
           >
             <FaCloud className="size-3.5" />
             <span>Sign in to Sync</span>
@@ -89,7 +91,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
         ) : (
           <button
             onClick={handleLogout}
-            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary hover:text-primary rounded-md transition-colors duration-200"
+            className="w-full flex justify-center items-center gap-2 px-2 py-1.5 text-sm text-secondary-foreground hover:text-foreground rounded-md transition-colors duration-200"
           >
             <FaRightFromBracket className="size-3.5" />
             <span>Logout</span>

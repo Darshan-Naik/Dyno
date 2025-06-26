@@ -87,7 +87,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
   };
 
   return (
-    <div className="absolute flex gap-2 px-2 py-1 bg-secondary shadow-lg rounded-lg bottom-4 left-1/2 -translate-x-1/2 z-10">
+    <div className="absolute flex gap-2 px-2 py-1 bg-card shadow-lg rounded-lg bottom-4 left-1/2 -translate-x-1/2 z-10">
       <div className="flex items-center gap-2 border-r border-secondary pr-2">
         {VARIANTS.map((variant) => {
           const Icon = variant.icon;
@@ -95,7 +95,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
             <button
               key={variant.id}
               className={twMerge(
-                "p-1 rounded-md text-secondary hover:text-primary transition-colors",
+                "p-1 rounded-md text-secondary-foreground hover:text-foreground transition-colors",
                 getCurrentVariant() === variant.id &&
                   "text-blue-500 hover:text-blue-600"
               )}
@@ -122,7 +122,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
           }}
         />
         {showColorPicker && (
-          <div className="absolute bottom-full left-0 mt-1 p-2 bg-secondary shadow-lg rounded-lg grid grid-cols-4 gap-1 w-32">
+          <div className="absolute bottom-full left-0 mt-1 p-2 bg-card shadow-lg rounded-lg grid grid-cols-4 gap-1 w-32">
             {PREDEFINED_COLORS.map(({ color }) => (
               <button
                 key={color}
@@ -148,7 +148,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
           <button
             key={size.id}
             className={twMerge(
-              "p-1 rounded-md text-secondary hover:text-primary transition-colors",
+              "p-1 rounded-md text-secondary-foreground hover:text-foreground transition-colors",
               getCurrentSizeId() === size.id &&
                 "text-blue-500 hover:text-blue-600"
             )}
@@ -172,7 +172,7 @@ export const StyleToolbar: React.FC<StyleToolbarProps> = ({
             <button
               key={style.id}
               className={twMerge(
-                "p-1 rounded-md text-secondary hover:text-primary transition-colors",
+                "p-1 rounded-md text-secondary-foreground hover:text-foreground transition-colors",
                 strokeStyle === style.id && "text-blue-500 hover:text-blue-600"
               )}
               onClick={() => onStrokeStyleChange(style.id)}

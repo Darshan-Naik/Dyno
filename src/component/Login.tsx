@@ -15,25 +15,25 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-primary">
-      <div className="bg-secondary p-8 rounded-lg shadow-md w-96 flex flex-col gap-4 items-center border-gray-700">
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="bg-card p-8 rounded-lg shadow-md w-96 flex flex-col gap-4 items-center border-border">
         <img src={icon} alt="Dyno Logo" className="w-10 h-10" />
         <div>
           <h1 className="text-center">Welcome to Dyno</h1>
-          <p className="text-center text-sm font-light text-secondary italic">
+          <p className="text-center text-sm font-light text-secondary-foreground italic">
             All your tasks in one place
           </p>
         </div>
         <button
           onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-2 bg-primary border border-gray-700 rounded-lg px-6 py-2 text-primary focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
+          className="w-full flex items-center justify-center gap-2 bg-background border border-border rounded-lg px-6 py-2 text-foreground focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
         >
           <FaGoogle className="size-4" />
           Sign in with Google
         </button>
         <button
           onClick={handleLocalMode}
-          className="w-full flex items-center justify-center gap-2 bg-secondary border border-gray-900 text-sm rounded-lg px-4 py-1 text-secondary hover:text-primary focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
+          className="w-full flex items-center justify-center gap-2 bg-card border border-border text-sm rounded-lg px-4 py-1 text-secondary-foreground hover:text-foreground focus:outline-hidden hover:scale-105 transition-all duration-300 shadow-md"
         >
           <IoCloudOfflineOutline className="size-3" />
           Use without login
@@ -41,13 +41,13 @@ const Login: React.FC = () => {
         {isWeb && (
           <a
             href="/download"
-            className="w-full underline flex items-center justify-center gap-2 text-secondary hover:text-primary transition-colors text-xs"
+            className="w-full underline flex items-center justify-center gap-2 text-secondary-foreground hover:text-foreground transition-colors text-xs"
           >
             <FaDownload className="size-2.5" />
             Download Desktop App
           </a>
         )}
-        <p className="text-center text-sm font-light text-secondary">
+        <p className="text-center text-sm font-light text-secondary-foreground">
           &copy; 2025 Dyno. All rights reserved.
         </p>
       </div>

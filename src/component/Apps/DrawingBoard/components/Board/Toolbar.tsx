@@ -33,14 +33,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
   return (
     <div
-      className="absolute flex gap-2 px-2 py-1 bg-secondary shadow-lg rounded-lg top-4 left-1/2 -translate-x-1/2 z-10"
+      className="absolute flex gap-2 px-2 py-1 bg-card shadow-lg rounded-lg top-4 left-1/2 -translate-x-1/2 z-10"
       onClick={(e) => e.stopPropagation()}
     >
       {tools.map(({ id, icon: Icon, title }) => (
         <button
           key={id}
           className={twMerge(
-            "p-1 rounded-md text-secondary hover:text-primary transition-colors",
+            "p-1 rounded-md text-secondary-foreground hover:text-foreground transition-colors",
             currentTool === id && "text-blue-500 hover:text-blue-600"
           )}
           onClick={() => onToolChange(id)}
