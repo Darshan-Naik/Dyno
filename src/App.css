@@ -129,4 +129,7 @@
   button {
     @apply cursor-pointer;
   }
+  .dark {
+    color-scheme: dark;
+  }
 }
