@@ -126,4 +126,7 @@
   .prose * {
     @apply leading-tight;
   }
+  button {
+    @apply cursor-pointer;
+  }
 }

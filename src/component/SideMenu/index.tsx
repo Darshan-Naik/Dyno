@@ -34,11 +34,11 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
   };
 
   return (
-    <div className="max-w-60 bg-sidebar h-full px-2 w-1/6 sidebar flex flex-col min-w-28">
+    <div className="max-w-60 bg-sidebar h-full px-2 w-1/6 sidebar flex flex-col min-w-40">
       {isWeb ? (
-        <div className="header font-thin h-10 text-foreground w-full flex items-center gap-2 px-2">
-          <img src={icon} alt="Dyno Logo" className="w-6 h-6" />
-          <span className="font-medium italic">Dyno</span>
+        <div className="header font-thin h-14 text-foreground w-full flex items-center gap-2 px-2">
+          <img src={icon} alt="Dyno Logo" className="size-8" />
+          <span className="font-medium italic text-lg">Dyno</span>
         </div>
       ) : (
         <div className="header font-thin h-10 text-foreground w-full" />

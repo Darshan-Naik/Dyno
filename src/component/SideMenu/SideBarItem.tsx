@@ -11,7 +11,7 @@ const SideBarItem = ({ label, Icon, active, onClick }: SideBarItemProps) => {
     <button
       onClick={onClick}
       className={twMerge(
-        "w-full text-foreground/70 font-light text-xs text-left py-1 px-2 rounded-md  hover:bg-accent hover:text-accent-foreground transition-colors duration-300 flex justify-between items-center cursor-pointer",
+        "w-full text-foreground/70 font-light text-sm text-left py-1.5 px-3 rounded-md  hover:bg-accent hover:text-accent-foreground transition-colors duration-300 flex justify-between items-center cursor-pointer",
         active && "text-foreground bg-accent"
       )}
     >
@@ -19,7 +19,6 @@ const SideBarItem = ({ label, Icon, active, onClick }: SideBarItemProps) => {
         <Icon className="size-4" />
         {label}
       </span>
-      {/* <span>*</span> */}
     </button>
   );
 };
