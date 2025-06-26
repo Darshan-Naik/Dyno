@@ -57,7 +57,7 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
         {isWeb && (
           <button
             onClick={handleDownload}
-            className="w-full px-3 py-1 flex items-center justify-center gap-2 bg-linear-to-r to-blue-500 from-purple-600 hover:to-blue-600 hover:from-purple-700 rounded-full transition-all duration-200  my-2"
+            className="w-full px-3 py-1 flex items-center justify-center gap-2 bg-linear-to-r to-blue-500 from-purple-600 hover:to-blue-600 hover:from-purple-700 rounded-full transition-all duration-200  my-3"
           >
             <FaDownload className="size-3" />
             <span className="text-xs truncate">Download App</span>
@@ -68,10 +68,10 @@ const SideMenu = ({ handleMenuClick, activeMenu }: SideMenuProps) => {
             <img
               src={user?.photoURL || icon}
               alt="Profile"
-              className="w-7 h-7 rounded-full"
+              className="size-8 rounded-full"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-foreground truncate">
+              <p className="text-sm text-foreground truncate">
                 {user.displayName}
               </p>
               <p className="text-xs text-muted-foreground truncate">
