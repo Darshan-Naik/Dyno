@@ -75,7 +75,7 @@ const Note = ({
           }),
           toolbarPlugin({
             toolbarContents: () => (
-              <div className="flex justify-between items-center w-full bg-card">
+              <div className="flex justify-between items-center w-full bg-card px-2">
                 <div className="p-1 grid place-items-center">
                   {onSave && (
                     <button
