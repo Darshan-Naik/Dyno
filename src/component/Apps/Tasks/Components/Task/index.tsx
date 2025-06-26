@@ -26,7 +26,7 @@ const Task = ({ task }: TaskProps) => {
 
   return (
     <div
-      className="bg-card px-2 py-1 text-foreground rounded-sm flex gap-4"
+      className="bg-card py-2 px-4 text-foreground rounded-sm flex gap-4 border border-transparent hover:border-border focus-within:border-border transition-colors"
       style={{
         viewTransitionName: `task-animate-${task.id}`,
         contain: "layout",
